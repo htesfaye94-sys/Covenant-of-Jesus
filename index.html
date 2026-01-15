@@ -9,12 +9,13 @@
     
     <style>
         :root {
-            --espresso: #1a0f0f; 
+            --espresso: #120a0a; 
             --gold: #c5a059;      
-            --gold-bright: #e9d5a3;
-            --parchment: #fdfaf5;
+            --gold-bright: #f1dfb5;
+            --parchment: rgba(253, 250, 245, 0.95);
             --glass: rgba(255, 255, 255, 0.03);
-            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --border-glow: rgba(197, 160, 89, 0.3);
+            --transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -22,150 +23,158 @@
         body { 
             font-family: 'Faustina', 'Noto Sans Ethiopic', serif; 
             background-color: var(--espresso); 
-            color: var(--espresso); 
+            background: radial-gradient(circle at center, #2c1a1a 0%, #0d0606 100%);
+            color: white; 
             overflow: hidden; 
             height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        /* --- SOPHISTICATED NAVIGATION --- */
+        /* --- PREMIUM BILINGUAL NAVIGATION --- */
         header {
-            background: linear-gradient(to bottom, #2c1a1a, #1a0f0f);
-            padding: 20px 0;
-            border-bottom: 1px solid var(--gold);
+            background: linear-gradient(to bottom, #1f1212, #120a0a);
+            padding: 25px 0;
+            border-bottom: 2px solid var(--gold);
             z-index: 1000;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
         }
 
         nav {
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 15px;
             overflow-x: auto;
-            padding: 0 15px;
+            padding: 0 20px;
         }
 
         .nav-btn {
             background: rgba(197, 160, 89, 0.05);
             border: 1px solid rgba(197, 160, 89, 0.2);
             color: var(--gold-bright);
-            padding: 12px 18px;
+            padding: 15px 25px;
             cursor: pointer;
             border-radius: 4px;
             transition: var(--transition);
-            min-width: 110px;
+            min-width: 140px;
             text-align: center;
             display: flex;
             flex-direction: column;
-            gap: 2px;
+            gap: 5px;
         }
 
-        .nav-btn h4 { font-family: 'Cinzel', serif; font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; }
-        .nav-btn span { font-family: 'Noto Sans Ethiopic'; font-size: 0.7rem; opacity: 0.6; }
+        .nav-btn h4 { font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase; }
+        .nav-btn span { font-family: 'Noto Sans Ethiopic'; font-size: 0.8rem; opacity: 0.6; }
 
-        .nav-btn:hover { background: rgba(197, 160, 89, 0.15); border-color: var(--gold); transform: translateY(-2px); }
-        .nav-btn.active { background: var(--gold); color: var(--espresso); border-color: var(--white); box-shadow: 0 0 20px rgba(197, 160, 89, 0.4); }
-        .nav-btn.active span { color: var(--espresso); opacity: 0.8; }
-
-        /* --- MAIN CONTENT AREA --- */
-        main { 
-            flex: 1; 
-            overflow-y: auto; 
-            background: radial-gradient(circle at center, #2c1a1a 0%, #0d0606 100%);
-            position: relative;
+        .nav-btn:hover { background: rgba(197, 160, 89, 0.15); border-color: var(--gold); transform: translateY(-3px); }
+        .nav-btn.active { 
+            background: var(--gold); 
+            color: var(--espresso); 
+            border-color: white; 
+            box-shadow: 0 0 30px rgba(197, 160, 89, 0.5); 
         }
+        .nav-btn.active span { color: var(--espresso); opacity: 0.9; }
+
+        /* --- MAIN CONTENT STAGE --- */
+        main { flex: 1; overflow-y: auto; position: relative; display: flex; align-items: center; justify-content: center; }
 
         .pane { 
             display: none; 
-            width: 100%; 
-            max-width: 1300px; 
+            width: 95%; 
+            max-width: 1100px; 
             margin: auto; 
-            padding: 60px 25px;
-            animation: paneEntrance 0.7s ease-out forwards;
+            animation: paneEntrance 0.8s ease-out forwards;
         }
         .pane.active { display: block; }
 
         @keyframes paneEntrance { 
-            from { opacity: 0; filter: blur(10px); transform: translateY(20px); } 
+            from { opacity: 0; filter: blur(15px); transform: translateY(30px); } 
             to { opacity: 1; filter: blur(0); transform: translateY(0); } 
         }
 
-        /* --- HOME SECTION: THE FRONTISPIECE --- */
-        #home-pane { height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-        
-        .hero-card {
+        /* --- THE PREMIUM GLASS CARD (Global for all Sections) --- */
+        .glass-card {
             background: rgba(255,255,255,0.02);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             padding: 60px 40px;
-            border: 1px solid rgba(197, 160, 89, 0.3);
+            border: 1px solid var(--border-glow);
             border-radius: 2px;
             position: relative;
-            max-width: 800px;
-            width: 95%;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.6);
         }
 
-        .hero-card::before, .hero-card::after {
-            content: ''; position: absolute; width: 40px; height: 40px; border: 2px solid var(--gold);
+        /* Ornamental Corners */
+        .glass-card::before, .glass-card::after {
+            content: ''; position: absolute; width: 50px; height: 50px; border: 2px solid var(--gold);
         }
-        .hero-card::before { top: -10px; left: -10px; border-right: 0; border-bottom: 0; }
-        .hero-card::after { bottom: -10px; right: -10px; border-left: 0; border-top: 0; }
+        .glass-card::before { top: -12px; left: -12px; border-right: 0; border-bottom: 0; }
+        .glass-card::after { bottom: -12px; right: -12px; border-left: 0; border-top: 0; }
 
-        .logo-glow {
-            width: 170px; height: 170px;
-            border-radius: 50%;
-            border: 2px solid var(--gold);
-            margin: 0 auto 30px;
-            overflow: hidden;
-            background: white;
-            box-shadow: 0 0 40px rgba(197, 160, 89, 0.3);
+        /* --- HOME SPECIFIC --- */
+        .logo-ring {
+            width: 180px; height: 180px;
+            border-radius: 50%; border: 2px solid var(--gold);
+            margin: 0 auto 30px; background: white;
+            box-shadow: 0 0 50px rgba(197, 160, 89, 0.3); overflow: hidden;
         }
-        .logo-glow img { width: 100%; height: 100%; object-fit: cover; }
+        .logo-ring img { width: 100%; height: 100%; object-fit: cover; }
 
-        .hero-card h1 { font-family: 'Cinzel', serif; font-size: 3rem; color: white; letter-spacing: 5px; margin-bottom: 10px; }
-        .hero-card h2 { font-family: 'Noto Sans Ethiopic'; font-size: 2.2rem; color: var(--gold); font-weight: 700; margin-bottom: 25px; }
+        .pane-title { font-family: 'Cinzel', serif; font-size: 2.8rem; color: white; letter-spacing: 6px; text-align: center; }
+        .pane-subtitle { font-family: 'Noto Sans Ethiopic'; font-size: 2.2rem; color: var(--gold); font-weight: 700; text-align: center; margin-bottom: 30px; }
 
-        /* --- BILINGUAL CONTENT LAYOUT --- */
-        .academic-grid {
+        /* --- BILINGUAL GRID --- */
+        .bilingual-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 40px;
-            background: var(--parchment);
-            padding: 50px 40px;
-            border-radius: 2px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            margin-top: 20px;
         }
 
-        .side-am { font-family: 'Noto Sans Ethiopic'; font-size: 1.25rem; line-height: 2.2; border-right: 1px solid rgba(0,0,0,0.1); padding-right: 35px; text-align: justify; }
-        .side-en { font-size: 1.15rem; line-height: 1.9; padding-left: 5px; color: #3d2b1f; font-style: italic; text-align: justify; }
+        .side {
+            background: var(--parchment);
+            padding: 40px;
+            color: var(--espresso);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+            border-radius: 2px;
+            text-align: justify;
+        }
 
-        .pane-header { font-family: 'Cinzel', serif; font-size: 1.8rem; color: var(--gold-bright); text-align: center; margin-bottom: 35px; letter-spacing: 3px; }
+        .side h5 { font-family: 'Cinzel', serif; font-size: 1rem; color: var(--gold); margin-bottom: 15px; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 5px; }
+        .side-am { font-family: 'Noto Sans Ethiopic'; font-size: 1.25rem; line-height: 2.2; }
+        .side-en { font-size: 1.15rem; line-height: 2; font-style: italic; }
 
-        /* --- GRID SECTIONS (FOUNDATIONS & LIBRARY) --- */
-        .universal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        
-        .archive-card { 
-            background: #fff; padding: 35px 25px; 
-            text-decoration: none; color: var(--espresso);
-            transition: var(--transition); border-bottom: 4px solid var(--espresso);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        /* --- ARCHIVE GRID --- */
+        .archive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .premium-card {
+            background: var(--parchment);
+            padding: 30px 20px;
+            text-decoration: none;
+            color: var(--espresso);
+            transition: var(--transition);
+            border-bottom: 5px solid var(--espresso);
             text-align: center;
         }
-        .archive-card:hover { transform: translateY(-8px); border-bottom-color: var(--gold); }
-        .archive-card i { font-size: 2.5rem; color: var(--gold); margin-bottom: 15px; display: block; }
-        .archive-card h4 { font-family: 'Cinzel', serif; font-size: 1rem; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .archive-card span { font-family: 'Noto Sans Ethiopic'; color: var(--gold); font-size: 0.95rem; }
+        .premium-card:hover { transform: translateY(-10px); border-bottom-color: var(--gold); background: white; }
+        .premium-card i { font-size: 2.5rem; color: var(--gold); margin-bottom: 15px; display: block; }
+        .premium-card h4 { font-family: 'Cinzel', serif; font-size: 1rem; margin-bottom: 10px; }
+        .premium-card span { font-family: 'Noto Sans Ethiopic'; font-size: 0.9rem; color: var(--gold); font-weight: bold; }
 
-        footer { background: #000; color: #6e5a4e; text-align: center; padding: 25px; font-size: 0.7rem; letter-spacing: 4px; border-top: 1px solid #222; }
+        footer { background: #000; color: #55443a; text-align: center; padding: 25px; font-size: 0.75rem; letter-spacing: 5px; font-weight: bold; }
 
         /* --- MOBILE OPTIMIZATION --- */
         @media (max-width: 900px) {
-            .academic-grid { grid-template-columns: 1fr; padding: 30px 20px; gap: 30px; }
-            .side-am { border-right: none; border-bottom: 1px solid rgba(0,0,0,0.1); padding-right: 0; padding-bottom: 30px; }
-            .hero-card h1 { font-size: 1.8rem; }
-            .hero-card h2 { font-size: 1.6rem; }
-            .nav-btn { min-width: 90px; padding: 8px; }
-            .nav-btn h4 { font-size: 0.6rem; }
+            .bilingual-grid { grid-template-columns: 1fr; }
+            .glass-card { padding: 40px 20px; width: 92%; }
+            .pane-title { font-size: 2rem; letter-spacing: 3px; }
+            .pane-subtitle { font-size: 1.6rem; }
+            .nav-btn { min-width: 120px; padding: 10px; }
+            .nav-btn h4 { font-size: 0.7rem; }
         }
     </style>
 </head>
@@ -173,94 +182,96 @@
 
     <header>
         <nav>
-            <button class="nav-btn active" onclick="navTo('home-pane', this)"><h4>Home</h4><span>ቤት</span></button>
-            <button class="nav-btn" onclick="navTo('mission-pane', this)"><h4>Mission</h4><span>ተልዕኮ</span></button>
-            <button class="nav-btn" onclick="navTo('about-pane', this)"><h4>Focus</h4><span>ጥናት</span></button>
-            <button class="nav-btn" onclick="navTo('foundations-pane', this)"><h4>Foundations</h4><span>መሠረት</span></button>
-            <button class="nav-btn" onclick="navTo('library-pane', this)"><h4>Archive</h4><span>ማኅደር</span></button>
-            <button class="nav-btn" onclick="navTo('contact-pane', this)"><h4>Connect</h4><span>መገናኛ</span></button>
+            <button class="nav-btn active" onclick="navigate('home-pane', this)"><h4>Home</h4><span>ቤት</span></button>
+            <button class="nav-btn" onclick="navigate('mission-pane', this)"><h4>Mission</h4><span>ተልዕኮ</span></button>
+            <button class="nav-btn" onclick="navigate('about-pane', this)"><h4>About</h4><span>ጥናት</span></button>
+            <button class="nav-btn" onclick="navigate('foundations-pane', this)"><h4>Foundations</h4><span>መሠረት</span></button>
+            <button class="nav-btn" onclick="navigate('library-pane', this)"><h4>Archive</h4><span>ማኅደር</span></button>
+            <button class="nav-btn" onclick="navigate('contact-pane', this)"><h4>Connect</h4><span>መገናኛ</span></button>
         </nav>
     </header>
 
     <main>
         <div id="home-pane" class="pane active">
-            <div class="hero-card">
-                <div class="logo-glow">
-                    <img src="logo.jpg" alt="Covenant of Jesus">
+            <div class="glass-card" style="text-align: center;">
+                <div class="logo-ring">
+                    <img src="logo.jpg" alt="Logo">
                 </div>
-                <h1>Covenant of Jesus</h1>
-                <h2>ኪዳን ዘኢየሱስ</h2>
-                <p style="color: var(--gold-bright); letter-spacing: 4px; text-transform: uppercase; font-size: 0.75rem; opacity: 0.8;">
-                    Oriental Orthodox Theology • Patristics • Philosophy
+                <h1 class="pane-title">Covenant of Jesus</h1>
+                <h2 class="pane-subtitle">ኪዳን ዘኢየሱስ</h2>
+                <div style="width: 80px; height: 1px; background: var(--gold); margin: 0 auto 20px;"></div>
+                <p style="letter-spacing: 4px; text-transform: uppercase; font-size: 0.8rem; opacity: 0.8; color: var(--gold-bright);">
+                    Theology • Patristics • Philosophy
                 </p>
             </div>
         </div>
 
         <div id="mission-pane" class="pane">
-            <h2 class="pane-header">Sacred Mission / የተልዕኮ መግለጫ</h2>
-            <div class="academic-grid">
-                <div class="side-am">
-                    የዚህ ድረ-ገጽ ዋነኛ ዓላማ የጥንታዊቷን የኦሬንታል ኦርቶዶክስ ተዋሕዶ ቤተክርስቲያንን እምነትና ትምህርት በአእምሮአዊ ሙግት መከላከል ነው። ጥንታዊውን የአባቶች ጥበብ ከዘመናዊው የፍልስፍና ምርምር ጋር በማገናኘት ለእውነት ፈላጊዎች ሁሉ ጥልቅ ምላሽ ለመስጠት እንተጋለን።
-                </div>
-                <div class="side-en">
-                    This portal is dedicated to the intellectual defense of the Oriental Orthodox faith. By integrating ancient Patristic wisdom with contemporary philosophical inquiry, we provide rigorous scholarly answers for those in pursuit of Divine Truth.
+            <div class="glass-card">
+                <h1 class="pane-title" style="font-size: 2rem;">Sacred Mission</h1>
+                <h2 class="pane-subtitle" style="font-size: 1.6rem;">የተልዕኮ መግለጫ</h2>
+                <div class="bilingual-grid">
+                    <div class="side">
+                        <h5>Amharic</h5>
+                        <p class="side-am">የዚህ ድረ-ገጽ ዋነኛ ዓላማ የጥንታዊቷን የኦሬንታል ኦርቶዶክስ ተዋሕዶ ቤተክርስቲያንን እምነትና ትምህርት በአእምሮአዊ ሙግት መከላከል ነው። ጥንታዊውን የአባቶች ጥበብ ከዘመናዊው የፍልስፍና ምርምር ጋር በማገናኘት ለእውነት ፈላጊዎች ሁሉ ጥልቅ ምላሽ ለመስጠት እንተጋለን።</p>
+                    </div>
+                    <div class="side">
+                        <h5>English</h5>
+                        <p class="side-en">This portal is dedicated to the intellectual defense of the Oriental Orthodox faith. By integrating ancient Patristic wisdom with contemporary philosophical inquiry, we provide rigorous scholarly answers for those in pursuit of Divine Truth.</p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div id="about-pane" class="pane">
-            <h2 class="pane-header">Academic Scope / ጥናትና ምርምር</h2>
-            <div class="academic-grid">
-                <div class="side-am">
-                    ትኩረታችን በዋናነት በታላቁ ቅዱስ ቄርሎስ እና በቅዱስ ሳዊሮስ ዘአንጾኪያ ነገረ ክርስቶስ (Christology) ላይ ያተኮረ ነው። በተጨማሪም የሜታ-ፊዚክስ እና የሎጂክ ትምህርቶችን በመጠቀም የፈጣሪን ህልውና እና የምሥጢረ ሥጋዌን ጥልቀት እንመረምራለን።
-                </div>
-                <div class="side-en">
-                    Our academic focus centers upon the high Christology of St. Cyril of Alexandria and St. Severus of Antioch. Utilizing the analytical frameworks of Metaphysics and Logic, we examine the necessary existence of the Godhead and the profound mystery of the Incarnate Logos.
+            <div class="glass-card">
+                <h1 class="pane-title" style="font-size: 2rem;">Academic Scope</h1>
+                <h2 class="pane-subtitle" style="font-size: 1.6rem;">ጥናትና ምርምር</h2>
+                <div class="bilingual-grid">
+                    <div class="side">
+                        <h5>አቅጣጫ</h5>
+                        <p class="side-am">ትኩረታችን በዋናነት በታላቁ ቅዱስ ቄርሎስ እና በቅዱስ ሳዊሮስ ዘአንጾኪያ ነገረ ክርስቶስ (Christology) ላይ ያተኮረ ነው። በተጨማሪም የሜታ-ፊዚክስ እና የሎጂክ ትምህርቶችን በመጠቀም የፈጣሪን ህልውና እና የምሥጢረ ሥጋዌን ጥልቀት እንመረምራለን።</p>
+                    </div>
+                    <div class="side">
+                        <h5>Scholastic Focus</h5>
+                        <p class="side-en">Our focus centers upon the high Christology of St. Cyril of Alexandria and St. Severus of Antioch. Utilizing the analytical frameworks of Metaphysics and Logic, we examine the necessary existence of the Godhead and the mystery of the Incarnate Logos.</p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div id="foundations-pane" class="pane">
-            <h2 class="pane-header">Foundations / መሠረተ እውነት</h2>
-            <div class="universal-grid">
-                <div class="archive-card">
-                    <i class="fas fa-scroll"></i>
-                    <h4>Patristics</h4>
-                    <span>የአባቶች ትምህርት</span>
-                </div>
-                <div class="archive-card">
-                    <i class="fas fa-brain"></i>
-                    <h4>Philosophy</h4>
-                    <span>ፍልስፍና</span>
-                </div>
-                <div class="archive-card">
-                    <i class="fas fa-book-open"></i>
-                    <h4>Scripture</h4>
-                    <span>ቅዱሳት መጻሕፍት</span>
+            <div class="glass-card">
+                <h1 class="pane-title" style="font-size: 2rem; margin-bottom: 40px;">Intellectual Pillars</h1>
+                <div class="archive-grid">
+                    <div class="premium-card"><i class="fas fa-scroll"></i><h4>Patristics</h4><span>የአባቶች ትምህርት</span></div>
+                    <div class="premium-card"><i class="fas fa-brain"></i><h4>Philosophy</h4><span>ፍልስፍና</span></div>
+                    <div class="premium-card"><i class="fas fa-book-open"></i><h4>Scripture</h4><span>ቅዱሳት መጻሕፍት</span></div>
                 </div>
             </div>
         </div>
 
         <div id="library-pane" class="pane">
-            <h2 class="pane-header">Theological Archive / የጥናት ማኅደር</h2>
-            <div class="universal-grid">
-                <a href="library/catechism.html" class="archive-card"><h4>Prayers for the Departed</h4><span>ለሙታን የሚደረግ ጸሎት</span></a>
-                <a href="library/ontological.html" class="archive-card"><h4>Ontological Argument</h4><span>የአምላክ ህልውና ሙግት</span></a>
-                <a href="library/rebaptism.html" class="archive-card"><h4>On Re-baptism</h4><span>ስለ ዳግም ጥምቀት</span></a>
-                <a href="library/severus.html" class="archive-card"><h4>Severus of Antioch</h4><span>ቅዱስ ሳዊሮስ ዘአንጾኪያ</span></a>
-                <a href="library/confession.html" class="archive-card"><h4>Search for Meaning</h4><span>የሕይወት ትርጉም ፍለጋ</span></a>
-                <a href="library/josippon.html" class="archive-card"><h4>Josippon Study</h4><span>መጽሐፈ ዮሴፍ ወልደ ኮርዮን</span></a>
-                <a href="library/unity.html" class="archive-card"><h4>Orthodox Unity</h4><span>ኦርቶዶክሳዊ አንድነት</span></a>
-                <a href="library/epistemology.html" class="archive-card"><h4>Epistemology</h4><span>ስለ እውነት ጥናት</span></a>
+            <div class="glass-card">
+                <h1 class="pane-title" style="font-size: 2rem; margin-bottom: 40px;">Theological Archive</h1>
+                <div class="archive-grid">
+                    <a href="library/catechism.html" class="premium-card"><h4>Prayers for the Departed</h4><span>ለሙታን የሚደረግ ጸሎት</span></a>
+                    <a href="library/ontological.html" class="premium-card"><h4>Ontological Argument</h4><span>የአምላክ ህልውና ሙግት</span></a>
+                    <a href="library/rebaptism.html" class="premium-card"><h4>On Re-baptism</h4><span>ስለ ዳግም ጥምቀት</span></a>
+                    <a href="library/severus.html" class="premium-card"><h4>Severus of Antioch</h4><span>ቅዱስ ሳዊሮስ ዘአንጾኪያ</span></a>
+                    <a href="library/confession.html" class="premium-card"><h4>Search for Meaning</h4><span>የሕይወት ትርጉም ፍለጋ</span></a>
+                    <a href="library/josippon.html" class="premium-card"><h4>Josippon Study</h4><span>መጽሐፈ ዮሴፍ ወልደ ኮርዮን</span></a>
+                </div>
             </div>
         </div>
 
         <div id="contact-pane" class="pane">
-            <h2 class="pane-header">Fellowship / ኅብረት</h2>
-            <div style="max-width: 600px; margin: auto; text-align: center; color: white;">
-                <p style="font-size: 1.2rem; margin-bottom: 40px; opacity: 0.9;">Join our community for rigorous daily theological discourse and Patristic study.</p>
-                <a href="https://t.me/KidanZeIyesus" target="_blank" style="display: inline-block; background: var(--gold); color: #000; padding: 18px 45px; text-decoration: none; font-family: 'Cinzel', serif; font-weight: bold; border-radius: 2px;">Access Telegram Channel</a>
-                <div style="margin-top: 80px; font-family: 'Cinzel'; letter-spacing: 6px; color: var(--gold); font-size: 1rem;">CONTRA MUNDUM</div>
+            <div class="glass-card" style="text-align: center;">
+                <h1 class="pane-title" style="font-size: 2rem;">Fellowship</h1>
+                <h2 class="pane-subtitle" style="font-size: 1.6rem;">ኅብረት</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 40px; opacity: 0.9;">Join our community for daily theological discourse and Patristic study.</p>
+                <a href="https://t.me/KidanZeIyesus" target="_blank" style="display: inline-block; background: var(--gold); color: #000; padding: 20px 60px; text-decoration: none; font-family: 'Cinzel', serif; font-weight: bold; border-radius: 2px;">Visit Telegram</a>
+                <div style="margin-top: 60px; font-family: 'Cinzel'; letter-spacing: 6px; color: var(--gold); font-size: 1rem;">CONTRA MUNDUM</div>
             </div>
         </div>
     </main>
@@ -270,10 +281,10 @@
     </footer>
 
     <script>
-        function navTo(id, btn) {
+        function navigate(paneId, btn) {
             document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
+            document.getElementById(paneId).classList.add('active');
             btn.classList.add('active');
             document.querySelector('main').scrollTop = 0;
         }
