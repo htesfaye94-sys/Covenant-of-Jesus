@@ -1,306 +1,704 @@
-/**
- * ============================================================================
- * [COVENANT OF JESUS: INSTITUTIONAL CORE V6.0]
- * ============================================================================
- * Framework: React.js (Component-Based)
- * Styling: Advanced CSS-in-JS / Modular CSS
- * Purpose: Professional Scholastic Research Portal
- * ============================================================================
- */
+<!DOCTYPE html>
+<html lang="am" dir="ltr" class="institutional-locked">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Covenant of Jesus (ኪዳን ዘኢየሱስ) — An Institutional Scholastic Portal for Patristics and Philosophy.">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#030202">
 
-import React, { useState, useEffect, useRef } from 'react';
+    <title>Covenant of Jesus | ኪዳን ዘኢየሱስ — Institutional Research Portal</title>
 
-/* ----------------------------------------------------------------------------
-   [CSS MODULE: DESIGN SYSTEM]
-   In a production environment, this would be global.css
-   ---------------------------------------------------------------------------- */
-const STYLES = `
-:root {
-  --color-void: #020101;
-  --color-altar: #0c0808;
-  --color-sepia: #1a1414;
-  --gold-primary: #c5a059;
-  --gold-bright: #f1dfb5;
-  --gold-deep: #8e6d2f;
-  --gold-burnished: #5c4a26;
-  --parchment: #fcf9f2;
-  --ink: #0d0606;
-  --nav-h: 90px;
-  --ease-royal: cubic-bezier(0.19, 1, 0.22, 1);
-  --shadow-vault: 0 40px 100px rgba(0,0,0,0.8);
-}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700;800;900&family=Faustina:ital,wght@0,300..800;1,300..800&family=Noto+Sans+Ethiopic:wght@100..900&family=Spectral:ital,wght@0,200;0,400;0,700;1,400&display=swap" rel="stylesheet">
 
-/* Base Body Logic */
-.covenant-app {
-  background: var(--color-void);
-  color: white;
-  font-family: 'Faustina', serif;
-  overflow: hidden;
-  height: 100vh;
-}
+    <style>
+        /* ========================================================================================
+        [SECTION 2: INSTITUTIONAL DESIGN TOKENS]
+        ========================================================================================
+        We define the visual DNA of the portal here.
+        */
+        :root {
+            /* --- COLOR CORE: THE BASILICA VOID --- */
+            --color-void: #030202;
+            --color-altar: #0c0909;
+            --color-sepia-900: #120d0d;
+            --color-sepia-800: #1a1414;
+            --color-sepia-700: #261b1b;
+            
+            /* --- RADIANCE: SACRED GOLD --- */
+            --gold-base: #c5a059;
+            --gold-light: #f1dfb5;
+            --gold-deep: #8e6d2f;
+            --gold-burnished: #5c4a26;
+            --gold-gradient: linear-gradient(135deg, #8e6d2f 0%, #c5a059 45%, #f1dfb5 50%, #c5a059 55%, #8e6d2f 100%);
+            --gold-glow: 0 0 30px rgba(197, 160, 89, 0.2);
+            --gold-aura: rgba(197, 160, 89, 0.15);
 
-/* Custom Scroll Engine */
-.scroll-viewport {
-  height: 100vh;
-  overflow-y: auto;
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
-}
+            /* --- READING SURFACE: PARCHMENT --- */
+            --parchment: #fcf9f2;
+            --ink: #0d0606;
+            --ink-scholastic: #1a0f0f;
+            --ink-muted: #4a3c3c;
 
-/* [COMPONENT: NAVIGATION] */
-.site-header {
-  position: fixed; top: 0; width: 100%; height: var(--nav-h);
-  background: rgba(2, 1, 1, 0.98);
-  backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-  border-bottom: 1px solid var(--gold-burnished);
-  z-index: 10000; display: flex; align-items: center; justify-content: center;
-  transition: transform 0.6s var(--ease-royal);
-}
+            /* --- TYPOGRAPHY ENGINE --- */
+            --font-display: 'Cinzel', serif;
+            --font-ornate: 'Cinzel Decorative', serif;
+            --font-main: 'Faustina', serif;
+            --font-eth: 'Noto Sans Ethiopic', sans-serif;
+            --font-scholarly: 'Spectral', serif;
 
-.nav-rail { display: flex; gap: 15px; padding: 0 40px; }
-
-.nav-btn {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(197, 160, 89, 0.15);
-  padding: 12px 25px; cursor: pointer; text-decoration: none;
-  display: flex; flex-direction: column; align-items: center;
-  transition: 0.3s var(--ease-royal);
-}
-
-.nav-btn h4 { 
-  font-family: 'Cinzel', serif; font-size: 0.65rem; 
-  color: var(--gold-primary); letter-spacing: 2px; text-transform: uppercase;
-}
-
-.nav-btn span { 
-  font-family: 'Noto Sans Ethiopic'; font-size: 0.6rem; 
-  opacity: 0.5; color: white; margin-top: 2px;
-}
-
-.nav-btn.active { background: var(--gold-primary); border-color: white; }
-.nav-btn.active h4, .nav-btn.active span { color: black; opacity: 1; font-weight: 800; }
-
-/* [COMPONENT: THE VAULT] */
-.vault-section {
-  min-height: 100vh; width: 100%; display: flex; align-items: center; 
-  justify-content: center; scroll-snap-align: start; padding: 100px 20px;
-  position: relative;
-}
-
-.glass-vault {
-  background: rgba(12, 8, 8, 0.85);
-  backdrop-filter: blur(30px); border: 1px solid rgba(197, 160, 89, 0.15);
-  box-shadow: var(--shadow-vault);
-  width: 100%; max-width: 1250px; padding: clamp(40px, 8vh, 100px);
-  position: relative; border-radius: 4px; z-index: 10;
-}
-
-/* [COMPONENT: EXPANDING PILLARS] */
-.pillar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-
-.pillar-card {
-  background: var(--parchment); color: var(--ink); padding: 50px 40px;
-  cursor: pointer; text-align: center; border-bottom: 8px solid var(--color-void);
-  transition: 0.5s var(--ease-royal); position: relative;
-}
-
-.pillar-card:hover { transform: translateY(-10px); border-bottom-color: var(--gold-primary); }
-
-.pillar-card i { font-size: 3rem; color: var(--gold-deep); margin-bottom: 25px; }
-
-.pillar-drawer {
-  max-height: 0; overflow: hidden; opacity: 0;
-  transition: max-height 0.8s var(--ease-royal), opacity 0.5s;
-  text-align: left;
-}
-
-.pillar-card.is-active { background: white; border-bottom-color: var(--gold-primary); }
-.pillar-card.is-active .pillar-drawer { max-height: 500px; opacity: 1; margin-top: 30px; padding-top: 25px; border-top: 1px solid #ddd; }
-
-/* [COMPONENT: ARCHIVE] */
-.archive-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-
-.archive-tile {
-  background: var(--parchment); padding: 40px 20px; text-decoration: none;
-  color: var(--ink); border-bottom: 5px solid black; text-align: center;
-  transition: 0.4s var(--ease-royal);
-}
-
-.archive-tile:hover { transform: scale(1.03); border-bottom-color: var(--gold-primary); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
-.archive-tile h4 { font-family: 'Cinzel', serif; font-size: 1rem; letter-spacing: 2px; margin-bottom: 5px; }
-.archive-tile span { font-family: 'Noto Sans Ethiopic'; opacity: 0.7; font-weight: 700; color: var(--gold-deep); }
-
-/* Decorative */
-.bg-layer {
-  position: absolute; inset: 0; background-size: cover; background-position: center;
-  filter: brightness(0.2); z-index: -1; transform: scale(1.1);
-}
-`;
-
-/* ----------------------------------------------------------------------------
-   [UTILITY: COMPONENTS]
-   ---------------------------------------------------------------------------- */
-
-const Header = ({ activeSection }) => (
-  <header className="site-header">
-    <nav className="nav-rail">
-      {['portal', 'mission', 'foundations', 'archive', 'communion'].map((id) => (
-        <a 
-          key={id} 
-          href={`#${id}`} 
-          className={`nav-btn ${activeSection === id ? 'active' : ''}`}
-        >
-          <h4>{id}</h4>
-          <span>{id === 'portal' ? 'ቤት' : id === 'archive' ? 'ማኅደር' : 'ተልዕኮ'}</span>
-        </a>
-      ))}
-    </nav>
-  </header>
-);
-
-const FoundationPillar = ({ icon, title, amharic, children }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  return (
-    <div 
-      className={`pillar-card ${isOpen ? 'is-active' : ''}`} 
-      onClick={() => setIsOpen(!isOpen)}
-    >
-      <i className={`fas ${icon}`}></i>
-      <h4>{title}</h4>
-      <span style={{fontFamily: 'Noto Sans Ethiopic'}}>{amharic}</span>
-      <div className="pillar-drawer">
-        <p style={{fontFamily: 'Noto Sans Ethiopic', fontSize: '1.2rem', lineHeight: '2.2'}}>
-          {children}
-        </p>
-      </div>
-    </div>
-  );
-};
-
-const ArchiveTile = ({ href, title, amharic }) => (
-  <a href={href} className="archive-tile">
-    <h4>{title}</h4>
-    <span>{amharic}</span>
-  </a>
-);
-
-/* ----------------------------------------------------------------------------
-   [MAIN APPLICATION ENGINE]
-   ---------------------------------------------------------------------------- */
-
-const CovenantPortal = () => {
-  const [activeSection, setActiveSection] = useState('portal');
-  const scrollRef = useRef(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = ['portal', 'mission', 'foundations', 'archive', 'communion'];
-      const current = sections.find(id => {
-        const el = document.getElementById(id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          return rect.top >= -100 && rect.top <= 300;
+            /* --- GEOMETRY --- */
+            --nav-h: 100px;
+            --footer-h: 120px;
+            --container-max: 1500px;
+            --radius-sm: 2px;
+            --radius-md: 4px;
+            --t-royal: cubic-bezier(0.19, 1, 0.22, 1);
+            
+            /* --- TRANSITIONS --- */
+            --anim-slow: 1.2s var(--t-royal);
+            --anim-mid: 0.6s var(--t-royal);
+            --anim-quick: 0.3s var(--t-royal);
         }
-        return false;
-      });
-      if (current) setActiveSection(current);
-    };
 
-    const container = scrollRef.current;
-    container.addEventListener('scroll', handleScroll);
-    return () => container.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  return (
-    <div className="covenant-app">
-      <style>{STYLES}</style>
-      
-      <Header activeSection={activeSection} />
-
-      <main className="scroll-viewport" ref={scrollRef}>
+        /* ========================================================================================
+        [SECTION 3: GLOBAL ARCHITECTURE]
+        ========================================================================================
+        */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
-        {/* PORTAL SECTION */}
-        <section id="portal" className="vault-section">
-          <div className="bg-layer" style={{backgroundImage: "url('https://images.unsplash.com/photo-1548003693-f140643900cc?q=80')"}}></div>
-          <div className="glass-vault" style={{textAlign: 'center'}}>
-            <div style={{width: '180px', height: '180px', margin: '0 auto 40px', background: 'white', borderRadius: '50%', padding: '10px', border: '2px solid var(--gold-primary)'}}>
-              <img src="logo.jpg" alt="Logo" style={{width:'100%', height:'100%', borderRadius:'50%'}} />
+        html { 
+            scroll-behavior: smooth; 
+            background: var(--color-void);
+            height: -webkit-fill-available;
+            scrollbar-width: none;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: white;
+            background-color: var(--color-void);
+            background-image: 
+                radial-gradient(circle at 50% 0%, var(--color-altar) 0%, var(--color-void) 70%),
+                url("https://www.transparenttextures.com/patterns/dark-matter.png");
+            height: 100vh; height: 100dvh;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Institutional Noise Layer */
+        body::after {
+            content: ""; position: fixed; inset: 0;
+            background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+            opacity: 0.1; pointer-events: none; z-index: 10000;
+        }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+
+        /* ========================================================================================
+        [SECTION 4: COMPONENT - HEADER & COMMAND RAIL]
+        ========================================================================================
+        */
+        .site-header {
+            position: fixed; top: 0; width: 100%; height: var(--nav-h);
+            background: rgba(3, 2, 2, 0.98);
+            backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
+            border-bottom: 1.5px solid var(--gold-burnished);
+            z-index: 9000; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 10px 50px rgba(0,0,0,1);
+            transition: transform var(--anim-mid);
+        }
+
+        .site-header.is-hidden { transform: translateY(-100%); }
+
+        .nav-container {
+            width: 100%; max-width: var(--container-max);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 50px;
+        }
+
+        .nav-brand {
+            display: flex; align-items: center; gap: 20px;
+            text-decoration: none; color: white;
+        }
+
+        .brand-seal {
+            width: 55px; height: 55px; border: 2.5px solid var(--gold-base);
+            padding: 4px; border-radius: 50%; background: white;
+            box-shadow: var(--gold-glow);
+        }
+
+        .nav-rail { display: flex; gap: 12px; }
+
+        .cmd-unit {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(197, 160, 89, 0.15);
+            padding: 12px 25px; cursor: pointer; text-decoration: none;
+            display: flex; flex-direction: column; align-items: center;
+            min-width: 125px; transition: var(--anim-quick);
+            position: relative; overflow: hidden;
+        }
+
+        .cmd-unit h4 {
+            font-family: var(--font-display); font-size: 0.68rem;
+            font-weight: 900; letter-spacing: 2px; text-transform: uppercase;
+            color: var(--gold-base); margin-bottom: 2px;
+        }
+
+        .cmd-unit span {
+            font-family: var(--font-eth); font-size: 0.6rem;
+            opacity: 0.6; color: white;
+        }
+
+        /* Hover & Active States */
+        .cmd-unit::before {
+            content: ''; position: absolute; inset: 0;
+            background: var(--gold-gradient); opacity: 0;
+            transition: var(--anim-quick); z-index: -1;
+        }
+
+        .cmd-unit:hover { border-color: var(--gold-light); }
+        .cmd-unit.active { border-color: white; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        .cmd-unit.active::before { opacity: 1; }
+        .cmd-unit.active h4, .cmd-unit.active span { color: var(--color-void); opacity: 1; font-weight: 800; }
+
+        /* ========================================================================================
+        [SECTION 5: SCROLL STAGE & VIEWPORT LOGIC]
+        ========================================================================================
+        */
+        .viewport-engine {
+            height: 100vh; overflow-y: auto; scroll-snap-type: y mandatory;
+            scrollbar-width: none; scroll-padding-top: var(--nav-h);
+        }
+
+        .section-view {
+            min-height: 100vh; width: 100%; display: flex; align-items: center; 
+            justify-content: center; scroll-snap-align: start; padding: 120px 30px;
+            position: relative; overflow: hidden;
+        }
+
+        /* Section Background Graphics */
+        .parallax-bg {
+            position: absolute; inset: 0; z-index: -1;
+            background-size: cover; background-position: center;
+            filter: brightness(0.2) sepia(0.25) contrast(1.1);
+            transform: scale(1.05); transition: transform 5s linear;
+        }
+
+        /* ========================================================================================
+        [SECTION 6: COMPONENT - THE GLASS VAULT]
+        ========================================================================================
+        */
+        .vault {
+            background: rgba(12, 9, 9, 0.88);
+            backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(197, 160, 89, 0.18);
+            box-shadow: 0 50px 120px rgba(0,0,0,0.9);
+            padding: clamp(50px, 10vh, 120px) clamp(30px, 6vw, 100px);
+            width: 100%; max-width: 1350px; border-radius: 4px;
+            position: relative; z-index: 100;
+        }
+
+        /* Corner Flourishes */
+        .corner { position: absolute; width: 100px; height: 100px; border: 2px solid var(--gold-burnished); opacity: 0.4; }
+        .tl { top: 30px; left: 30px; border-right: 0; border-bottom: 0; }
+        .br { bottom: 30px; right: 30px; border-left: 0; border-top: 0; }
+
+        .vault-header { text-align: center; margin-bottom: 60px; }
+        
+        .divider-icon {
+            display: flex; align-items: center; justify-content: center;
+            gap: 30px; margin: 40px 0;
+        }
+        .divider-icon::before, .divider-icon::after {
+            content: ''; height: 1.5px; flex: 1; background: var(--gold-gradient); opacity: 0.3;
+        }
+        .divider-icon i { color: var(--gold-base); font-size: 1.5rem; filter: drop-shadow(0 0 15px var(--gold-aura)); }
+
+        /* ========================================================================================
+        [SECTION 7: MANUSCRIPT TYPOGRAPHY & LAYOUT]
+        ========================================================================================
+        */
+        .folio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; margin-top: 60px; }
+
+        .manuscript {
+            background: var(--parchment); color: var(--ink);
+            padding: 60px 50px; border-left: 15px solid var(--gold-burnished);
+            box-shadow: 25px 25px 0 rgba(0,0,0,0.5); position: relative;
+            transition: var(--anim-mid);
+        }
+
+        .manuscript:hover { transform: translate(-10px, -10px); box-shadow: 35px 35px 0 rgba(197, 160, 89, 0.08); }
+
+        .manuscript h5 {
+            font-family: var(--font-display); font-size: 0.85rem; color: var(--gold-deep);
+            letter-spacing: 4px; text-transform: uppercase; border-bottom: 2px solid rgba(0,0,0,0.1);
+            margin-bottom: 35px; padding-bottom: 15px; font-weight: 900;
+        }
+
+        /* Illuminated Manuscript Logic */
+        .drop-cap::first-letter {
+            font-family: var(--font-ornate); font-size: 5rem; float: left;
+            margin-right: 15px; color: var(--gold-deep); line-height: 0.85; font-weight: 900;
+        }
+
+        .txt-am { 
+            font-family: var(--font-eth); font-size: clamp(1.2rem, 2.2vh, 1.45rem); 
+            line-height: 2.4; font-weight: 600; text-align: justify;
+        }
+        
+        .txt-en { 
+            font-family: var(--font-scholarly); font-size: clamp(1.1rem, 1.9vh, 1.3rem); 
+            line-height: 2; font-style: italic; color: var(--ink-scholastic); text-align: justify;
+        }
+
+        /* ========================================================================================
+        [SECTION 8: COMPONENT - SCHOLASTIC PILLARS (EXPANDING)]
+        ========================================================================================
+        */
+        .monument-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 35px; }
+
+        .monument-tile {
+            background: var(--parchment); color: var(--ink); padding: 70px 45px;
+            cursor: pointer; text-align: center; border-bottom: 12px solid var(--color-void);
+            transition: var(--anim-mid); position: relative; overflow: hidden;
+        }
+
+        .monument-tile:hover { transform: translateY(-15px); border-bottom-color: var(--gold-base); }
+        .monument-tile i { font-size: 4rem; color: var(--gold-deep); margin-bottom: 35px; display: block; }
+        .monument-tile h4 { font-family: var(--font-display); font-size: 1.4rem; letter-spacing: 3px; font-weight: 900; margin-bottom: 10px; }
+
+        /* The Expanding Logic Drawer */
+        .drawer {
+            max-height: 0; overflow: hidden; transition: max-height 1s var(--t-royal), opacity 0.6s, margin 0.6s;
+            opacity: 0; text-align: left;
+        }
+
+        .monument-tile.active { background: white; border-bottom-color: var(--gold-base); cursor: default; }
+        .monument-tile.active .drawer { 
+            max-height: 800px; opacity: 1; margin-top: 40px; 
+            border-top: 1px solid rgba(0,0,0,0.15); padding-top: 35px; 
+        }
+
+        /* ========================================================================================
+        [SECTION 9: COMPONENT - ARCHIVE VAULT]
+        ========================================================================================
+        */
+        .archive-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
+
+        .archive-card {
+            background: var(--parchment); padding: 50px 35px; text-decoration: none;
+            color: var(--ink); border-bottom: 8px solid var(--color-void);
+            transition: var(--anim-mid); text-align: center;
+            display: flex; flex-direction: column; justify-content: center;
+            position: relative;
+        }
+
+        .archive-card::after {
+            content: 'VIEW MANUSCRIPT'; position: absolute; bottom: 0; left: 0; width: 100%;
+            background: var(--gold-gradient); color: black; font-family: var(--font-display);
+            font-size: 0.6rem; font-weight: 900; padding: 5px 0; transform: translateY(100%);
+            transition: var(--anim-quick);
+        }
+
+        .archive-card:hover { background: white; border-bottom-color: var(--gold-base); transform: scale(1.05); }
+        .archive-card:hover::after { transform: translateY(0); }
+
+        .archive-card h4 { font-family: var(--font-display); font-size: 1.2rem; letter-spacing: 3px; margin-bottom: 12px; font-weight: 800; }
+        .archive-card span { font-family: var(--font-eth); font-size: 1rem; color: var(--gold-deep); font-weight: 700; }
+
+        /* ========================================================================================
+        [SECTION 10: ANIMATION ENGINE CLASSES]
+        ========================================================================================
+        */
+        .reveal-node { opacity: 0; transform: translateY(60px); transition: var(--anim-slow); }
+        .reveal-node.visible { opacity: 1; transform: translateY(0); }
+
+        .hero-title { 
+            font-family: var(--font-ornate); font-size: clamp(2.5rem, 8vh, 5.5rem); 
+            font-weight: 900; letter-spacing: 18px; color: white; 
+            text-shadow: 0 20px 50px rgba(0,0,0,1); margin-bottom: 15px;
+        }
+        
+        .hero-eth { 
+            font-family: var(--font-eth); font-size: clamp(2rem, 6vh, 3.5rem); 
+            color: var(--gold-base); font-weight: 900; margin-bottom: 40px;
+        }
+
+        /* ========================================================================================
+        [SECTION 11: RESPONSIVE ADAPTATIONS]
+        ========================================================================================
+        */
+        @media (max-width: 1200px) {
+            .nav-container { padding: 0 25px; }
+            .cmd-unit { min-width: 110px; padding: 10px 15px; }
+            .folio-grid { grid-template-columns: 1fr; }
+            .vault { padding: 60px 30px; }
+        }
+
+        @media (max-width: 768px) {
+            :root { --nav-h: 85px; }
+            .nav-brand span { display: none; }
+            .cmd-unit span { display: none; }
+            .cmd-unit h4 { font-size: 0.55rem; }
+            .hero-title { font-size: 2.2rem; letter-spacing: 8px; }
+            .monument-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ========================================================================================
+        [SECTION 12: INSTITUTIONAL FOOTER]
+        ========================================================================================
+        */
+        .site-footer {
+            height: var(--footer-h); background: #000; border-top: 4px solid #111;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            font-family: var(--font-display); gap: 15px; z-index: 9500;
+        }
+        .footer-logo { font-size: 0.9rem; letter-spacing: 8px; font-weight: 900; color: var(--gold-burnished); }
+        .footer-tag { font-size: 0.65rem; letter-spacing: 15px; opacity: 0.4; text-transform: uppercase; }
+
+    </style>
+</head>
+<body onload="AionSystem.ignite()">
+
+    <div class="ambient-noise"></div>
+
+    <header class="site-header" id="masterHeader">
+        <nav class="nav-container">
+            <a href="#v-portal" class="nav-brand">
+                <img src="logo.jpg" alt="Institutional Seal" class="brand-seal">
+                <span style="font-family: var(--font-display); font-size: 1rem; font-weight: 900; letter-spacing: 4px;">KIDAN</span>
+            </a>
+            
+            <div class="nav-rail no-scrollbar">
+                <a href="#v-portal" class="cmd-unit active" data-target="v-portal">
+                    <h4>Portal</h4>
+                    <span>ቤት</span>
+                </a>
+                <a href="#v-mission" class="cmd-unit" data-target="v-mission">
+                    <h4>Mission</h4>
+                    <span>ተልዕኮ</span>
+                </a>
+                <a href="#v-scholastic" class="cmd-unit" data-target="v-scholastic">
+                    <h4>Scholastic</h4>
+                    <span>ጥናት</span>
+                </a>
+                <a href="#v-foundations" class="cmd-unit" data-target="v-foundations">
+                    <h4>Pillars</h4>
+                    <span>መሠረት</span>
+                </a>
+                <a href="#v-archive" class="cmd-unit" data-target="v-archive">
+                    <h4>Archive</h4>
+                    <span>ማኅደር</span>
+                </a>
+                <a href="#v-communion" class="cmd-unit" data-target="v-communion">
+                    <h4>Communion</h4>
+                    <span>ኅብረት</span>
+                </a>
             </div>
-            <h1 style={{fontFamily: 'Cinzel Decorative', fontSize: '4rem', letterSpacing: '15px'}}>COVENANT OF JESUS</h1>
-            <h2 style={{fontFamily: 'Noto Sans Ethiopic', fontSize: '2.5rem', color: 'var(--gold-primary)'}}>ኪዳን ዘኢየሱስ</h2>
-          </div>
-        </section>
+        </nav>
+    </header>
 
-        {/* MISSION SECTION */}
-        <section id="mission" className="vault-section">
-          <div className="bg-layer" style={{backgroundImage: "url('https://images.unsplash.com/photo-1519817650390-64a93db51149?q=80')"}}></div>
-          <div className="glass-vault">
-            <h2 style={{fontFamily: 'Cinzel', fontSize: '2.5rem', textAlign: 'center', marginBottom: '40px'}}>The Sacred Mission</h2>
-            <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px'}}>
-              <div style={{background: 'var(--parchment)', color: 'black', padding: '40px'}}>
-                <h5 style={{color: 'var(--gold-deep)', marginBottom: '20px'}}>መግለጫ</h5>
-                <p style={{fontFamily: 'Noto Sans Ethiopic', fontSize: '1.3rem', lineHeight: '2.2'}}>የዚህ ድረ-ገጽ ዋነኛ ዓላማ የጥንታዊቷን የኦሬንታል ኦርቶዶክስ ተዋሕዶ ቤተክርስቲያንን እምነትና ትምህርት በአእምሮአዊ ሙግት መከላከል ነው።</p>
-              </div>
-              <div style={{background: 'var(--parchment)', color: 'black', padding: '40px', fontStyle: 'italic'}}>
-                <h5 style={{color: 'var(--gold-deep)', marginBottom: '20px'}}>STATEMENT</h5>
-                <p style={{fontSize: '1.2rem', lineHeight: '1.8'}}>The primary mission of this portal is the intellectual preservation and defense of the Oriental Orthodox faith through ancient Patristic wisdom.</p>
-              </div>
+    <main class="viewport-engine no-scrollbar" id="mainEngine">
+        
+        <section id="v-portal" class="section-view">
+            <div class="parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1548003693-f140643900cc?q=80&w=2070&auto=format&fit=crop');"></div>
+            <div class="vault reveal-node" style="text-align: center;">
+                <div class="corner tl"></div><div class="corner br"></div>
+                
+                <div style="margin-bottom: 60px; position: relative; display: inline-block;">
+                    <div style="width: clamp(180px, 22vh, 250px); height: clamp(180px, 22vh, 250px); border-radius: 50%; border: 3px solid var(--gold-base); padding: 15px; background: white; box-shadow: 0 0 100px var(--gold-aura);">
+                        <img src="logo.jpg" alt="Shield of the Covenant" style="width:100%; height:100%; border-radius:50%; object-fit:cover; filter: contrast(1.1);">
+                    </div>
+                </div>
+
+                <h1 class="hero-title">COVENANT OF JESUS</h1>
+                <h2 class="hero-eth">ኪዳን ዘኢየሱስ</h2>
+
+                <div class="divider-icon"><i class="fas fa-cross"></i></div>
+
+                <p style="text-transform: uppercase; letter-spacing: 14px; font-size: 1rem; color: var(--gold-light); opacity: 0.8; font-weight: 700;">
+                    ORIENTAL ORTHODOX • PATRISTICS • SCHOLASTICISM
+                </p>
             </div>
-          </div>
         </section>
 
-        {/* FOUNDATIONS SECTION (EXPANDING FEATURE) */}
-        <section id="foundations" className="vault-section">
-          <div className="bg-layer" style={{backgroundImage: "url('https://images.unsplash.com/photo-1545063914-a1a6ec821acc?q=80')"}}></div>
-          <div className="glass-vault">
-            <h2 style={{fontFamily: 'Cinzel', fontSize: '2.5rem', textAlign: 'center', marginBottom: '50px'}}>Scholastic Foundations</h2>
-            <div className="pillar-grid">
-              <FoundationPillar icon="fa-scroll" title="Patristics" amharic="የአባቶች ትምህርት">
-                የጥንት የቤተክርስቲያን አባቶች ያስተላለፉልንን ትምህርት በሥርዓት የምናጠናበት መሠረት ነው። ይህ ጥናት የቅዱሳት መጻሕፍትን ትርጓሜ እና የዶግማ መሠረቶችን ያካትታል።
-              </FoundationPillar>
-              <FoundationPillar icon="fa-brain" title="Philosophy" amharic="ፍልስፍና">
-                ምክንያታዊ በሆነ መንገድ የእምነትን መሠረት የምንመረምርበት እና የምንከላከልበት ጥበብ ነው። እውነትን ከውሸት ለመለየት ሎጂካዊ ሙግቶችን እንጠቀማለን።
-              </FoundationPillar>
-              <FoundationPillar icon="fa-book-open" title="Scripture" amharic="ቅዱሳት መጻሕፍት">
-                መጽሐፍ ቅዱስን ከመጀመሪያው ቋንቋው እና ከታሪካዊ አመጣጡ አንጻር የምናጠናበት ዘርፍ ነው። ጥናታችን የአባቶችን ትርጓሜ መሠረት ያደረገ ነው።
-              </FoundationPillar>
+        <section id="v-mission" class="section-view">
+            <div class="parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1519817650390-64a93db51149?q=80&w=1920&auto=format&fit=crop');"></div>
+            <div class="vault reveal-node">
+                <div class="corner tl"></div>
+                <div class="vault-header">
+                    <h2 class="hero-title" style="font-size: 3rem; letter-spacing: 8px;">The Sacred Mission</h2>
+                    <h3 class="hero-eth" style="font-size: 2.2rem; color: var(--gold-base);">የተልዕኮ መግለጫ</h3>
+                </div>
+
+                <div class="folio-grid">
+                    <article class="manuscript">
+                        <h5>መግለጫ</h5>
+                        <p class="txt-am drop-cap">የዚህ ድረ-ገጽ ዋነኛ ዓላማ የጥንታዊቷን የኦሬንታል ኦርቶዶክስ ተዋሕዶ ቤተክርስቲያንን እምነትና ትምህርት በአእምሮአዊ ሙግት መከላከል ነው። ጥንታዊውን የአባቶች ጥበብ ከዘመናዊው የፍልስፍና ምርምር ጋር በማገናኘት ለእውነት ፈላጊዎች ሁሉ ጥልቅ ምላሽ ለመስጠት እንተጋለን።</p>
+                    </article>
+                    <article class="manuscript">
+                        <h5>Institutional Statement</h5>
+                        <p class="txt-en">The primary mission of this portal is the intellectual preservation and defense of the Oriental Orthodox faith. By bridging ancient Patristic wisdom with modern philosophical discourse, we provide rigorous scholarly answers for all seekers of Divine Truth. We operate under the standard of high academic rigor.</p>
+                    </article>
+                </div>
             </div>
-          </div>
         </section>
 
-        {/* ARCHIVE SECTION (RESTORED LINKS) */}
-        <section id="archive" className="vault-section">
-          <div className="bg-layer" style={{backgroundImage: "url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80')"}}></div>
-          <div className="glass-vault">
-            <h2 style={{fontFamily: 'Cinzel', fontSize: '2.5rem', textAlign: 'center', marginBottom: '50px'}}>Scholastic Archive</h2>
-            <div className="archive-grid">
-              <ArchiveTile href="library/catechism.html" title="Soul Prayers" amharic="ለሙታን ጸሎት" />
-              <ArchiveTile href="library/ontological.html" title="Ontology" amharic="የህልውና ሙግት" />
-              <ArchiveTile href="library/rebaptism.html" title="Re-baptism" amharic="ስለ ጥምቀት" />
-              <ArchiveTile href="library/severus.html" title="St. Severus" amharic="ቅዱስ ሳዊሮስ" />
-              <ArchiveTile href="library/confession.html" title="Meaning" amharic="የሕይወት ትርጉም" />
-              <ArchiveTile href="library/josippon.html" title="Josippon" amharic="ዮሴፍ ወልደ ኮርዮን" />
+        <section id="v-scholastic" class="section-view">
+            <div class="parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1545063914-a1a6ec821acc?q=80&w=1920&auto=format&fit=crop');"></div>
+            <div class="vault reveal-node">
+                <div class="vault-header">
+                    <h2 class="hero-title" style="font-size: 3rem; letter-spacing: 8px;">Scholarly Inquiry</h2>
+                    <h3 class="hero-eth" style="font-size: 2.2rem; color: var(--gold-base);">ጥናትና ምርምር</h3>
+                </div>
+
+                <div class="folio-grid">
+                    <article class="manuscript">
+                        <h5>ክሪስቶሎጂ</h5>
+                        <p class="txt-am">ትኩረታችን በዋናነት በታላቁ ቅዱስ ቄርሎስ እና በቅዱስ ሳዊሮስ ዘአንጾኪያ ነገረ ክርስቶስ (Christology) ላይ ያተኮረ ነው። በተጨማሪም የሜታ-ፊዚክስ እና የሎጂክ ትምህርቶችን በመጠቀም የፈጣሪን ህልውና እንመረምራለን።</p>
+                    </article>
+                    <article class="manuscript">
+                        <h5>Scholastic Method</h5>
+                        <p class="txt-en">Our research centers upon the high Christology of St. Cyril of Alexandria and St. Severus of Antioch. Utilizing the analytical frameworks of Metaphysics and Logic, we examine the necessary existence of the Godhead and the mystery of the Incarnate Logos through rigorous dialectical analysis.</p>
+                    </article>
+                </div>
             </div>
-          </div>
         </section>
 
-        {/* COMMUNION SECTION */}
-        <section id="communion" className="vault-section">
-          <div className="bg-layer" style={{backgroundImage: "url('https://images.unsplash.com/photo-1438232992991-995b7058bbb3?q=80')"}}></div>
-          <div className="glass-vault" style={{textAlign: 'center'}}>
-            <h1 style={{fontFamily: 'Cinzel', fontSize: '3.5rem', marginBottom: '20px'}}>Communion</h1>
-            <h2 style={{fontFamily: 'Noto Sans Ethiopic', color: 'var(--gold-primary)', marginBottom: '40px'}}>የኅብረት መድረክ</h2>
-            <a href="https://t.me/KidanZeIyesus" target="_blank" style={{display: 'inline-block', padding: '25px 80px', background: 'var(--gold-primary)', color: 'black', textDecoration: 'none', fontFamily: 'Cinzel', fontWeight: '900', letterSpacing: '5px', border: '2px solid white'}}>ENTER SANCTUARY</a>
-          </div>
+        <section id="v-foundations" class="section-view">
+            <div class="parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1514369118554-e20d93546b30?q=80&w=1920&auto=format&fit=crop');"></div>
+            <div class="vault reveal-node">
+                <div class="vault-header">
+                    <h2 class="hero-title" style="font-size: 3rem; margin-bottom: 20px;">Foundations</h2>
+                    <p style="text-align: center; color: var(--gold-base); font-family: var(--font-eth); margin-bottom: 50px; font-style: italic; font-size: 1.3rem;">ለዝርዝር መግለጫ ይጫኑ / Scholastic Pillars of Truth</p>
+                </div>
+
+                <div class="monument-grid">
+                    <div class="monument-tile" onclick="AionSystem.toggleDrawer(this)">
+                        <i class="fas fa-scroll"></i>
+                        <h4>Patristics</h4>
+                        <span style="font-family: var(--font-eth);">የአባቶች ትምህርት</span>
+                        <div class="drawer">
+                            <p class="txt-am" style="border-top: 1px solid #ddd; padding-top: 25px;">የጥንት የቤተክርስቲያን አባቶች ያስተላለፉልንን ትምህርት በሥርዓት የምናጠናበት መሠረት ነው። ይህ ጥናት የቅዱሳት መጻሕፍትን ትርጓሜ እና የዶግማ መሠረቶችን ያካትታል።</p>
+                            <p class="txt-en" style="margin-top: 20px;">The systematic study of the writings and teachings of the Early Church Fathers, ensuring the preservation of the Apostolic tradition against modern heterodoxy.</p>
+                        </div>
+                    </div>
+
+                    <div class="monument-tile" onclick="AionSystem.toggleDrawer(this)">
+                        <i class="fas fa-brain"></i>
+                        <h4>Philosophy</h4>
+                        <span style="font-family: var(--font-eth);">ፍልስፍና</span>
+                        <div class="drawer">
+                            <p class="txt-am" style="border-top: 1px solid #ddd; padding-top: 25px;">ምክንያታዊ በሆነ መንገድ የእምነትን መሠረት የምንመረምርበት እና የምንከላከልበት ጥበብ ነው። እውነትን ከውሸት ለመለየት ሎጂካዊ ሙግቶችን እንጠቀማለን።</p>
+                            <p class="txt-en" style="margin-top: 20px;">Utilizing the full depth of rational inquiry and metaphysical frameworks to defend and articulate the logical necessity of the Orthodox faith.</p>
+                        </div>
+                    </div>
+
+                    <div class="monument-tile" onclick="AionSystem.toggleDrawer(this)">
+                        <i class="fas fa-book-bible"></i>
+                        <h4>Scripture</h4>
+                        <span style="font-family: var(--font-eth);">ቅዱሳት መጻሕፍት</span>
+                        <div class="drawer">
+                            <p class="txt-am" style="border-top: 1px solid #ddd; padding-top: 25px;">መጽሐፍ ቅዱስን ከመጀመሪያው ቋንቋው እና ከታሪካዊ አመጣጡ አንጻር የምናጠናበት ዘርፍ ነው። ጥናታችን የአባቶችን ትርጓሜ መሠረት ያደረገ ነው።</p>
+                            <p class="txt-en" style="margin-top: 20px;">Exegesis of the Holy Bible through the lens of its original languages and the authoritative interpretation of the Church Fathers.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
-      </main>
+        <section id="v-archive" class="section-view">
+            <div class="parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1920&auto=format&fit=crop');"></div>
+            <div class="vault reveal-node">
+                <div class="vault-header">
+                    <h2 class="hero-title" style="font-size: 3rem; margin-bottom: 50px;">Scholastic Archive</h2>
+                </div>
+                
+                <div class="archive-grid">
+                    <a href="library/catechism.html" class="archive-card">
+                        <h4>Soul Prayers</h4>
+                        <span>ለሙታን ጸሎት</span>
+                    </a>
+                    <a href="library/ontological.html" class="archive-card">
+                        <h4>Ontology</h4>
+                        <span>የህልውና ሙግት</span>
+                    </a>
+                    <a href="library/rebaptism.html" class="archive-card">
+                        <h4>Re-baptism</h4>
+                        <span>ስለ ጥምቀት</span>
+                    </a>
+                    <a href="library/severus.html" class="archive-card">
+                        <h4>St. Severus</h4>
+                        <span>ቅዱስ ሳዊሮስ</span>
+                    </a>
+                    <a href="library/confession.html" class="archive-card">
+                        <h4>Meaning</h4>
+                        <span>የሕይወት ትርጉም</span>
+                    </a>
+                    <a href="library/josippon.html" class="archive-card">
+                        <h4>Josippon</h4>
+                        <span>ዮሴፍ ወልደ ኮርዮን</span>
+                    </a>
+                </div>
+            </div>
+        </section>
 
-      <footer style={{height: '100px', background: 'black', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Cinzel', fontSize: '0.7rem', letterSpacing: '5px', color: '#444'}}>
-        COVENANT OF JESUS &copy; 2026 • ኪዳን ዘኢየሱስ • CONTRA MUNDUM
-      </footer>
-    </div>
-  );
-};
+        <section id="v-communion" class="section-view">
+            <div class="parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1438232992991-995b7058bbb3?q=80&w=1920&auto=format&fit=crop');"></div>
+            <div class="vault hero-hub reveal-node" style="text-align: center;">
+                <h1 class="hero-title" style="font-size: 4rem;">Communion</h1>
+                <h2 class="hero-eth" style="margin-bottom: 40px;">የኅብረት መድረክ</h2>
+                <p style="max-width: 750px; margin: 0 auto 60px; line-height: 2.6; color: #ccc; font-size: 1.3rem; font-family: var(--font-scholarly);">
+                    Theological inquiry requires brotherhood. For daily discourse, Patristic study circles, and private document access, join our institutional sanctuary.
+                </p>
+                <a href="https://t.me/KidanZeIyesus" target="_blank" style="
+                    display: inline-block; padding: 25px 80px; 
+                    background: var(--gold-gradient); color: var(--color-void);
+                    text-decoration: none; font-family: var(--font-display); 
+                    font-weight: 900; letter-spacing: 6px; border: 3px solid white;
+                    box-shadow: 0 20px 60px rgba(197, 160, 89, 0.4);
+                    transition: var(--anim-quick);
+                ">ENTER SANCTUARY</a>
+            </div>
+        </section>
 
-export default CovenantPortal;
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-logo">COVENANT OF JESUS &copy; 2026 • ኪዳን ዘኢየሱስ</div>
+        <div class="footer-tag">CONTRA MUNDUM • THEOLOGICAL EXCELLENCE • EST. 2026</div>
+    </footer>
+
+    <script>
+        /**
+         * AionSystem Engine v7.0
+         * Handles scroll-spy, state-driven UI logic, and parallax.
+         */
+        class AionSystem {
+            static ignite() {
+                this.state = {
+                    activeId: 'v-portal',
+                    lastScroll: 0,
+                    headerHidden: false
+                };
+
+                this.nodes = {
+                    engine: document.getElementById('mainEngine'),
+                    header: document.getElementById('masterHeader'),
+                    navItems: document.querySelectorAll('.cmd-unit'),
+                    sections: document.querySelectorAll('.section-view')
+                };
+
+                this._setupObservers();
+                this._setupScrollEvents();
+                this._setupSmoothScroll();
+                this._initialReveal();
+                console.log("AionSystem: Institutional Engine Online.");
+            }
+
+            /**
+             * Intersection Observer for tracking user location
+             */
+            static _setupObservers() {
+                const options = { threshold: 0.6, rootMargin: "0px" };
+                
+                const spy = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const id = entry.target.getAttribute('id');
+                            this._syncNavigation(id);
+                            this._revealNodes(entry.target);
+                        }
+                    });
+                }, options);
+
+                this.nodes.sections.forEach(s => spy.observe(s));
+            }
+
+            static _syncNavigation(id) {
+                this.state.activeId = id;
+                this.nodes.navItems.forEach(item => {
+                    const target = item.getAttribute('data-target');
+                    item.classList.toggle('active', target === id);
+                    if (target === id) {
+                        item.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                    }
+                });
+            }
+
+            static _revealNodes(section) {
+                const nodes = section.querySelectorAll('.reveal-node');
+                nodes.forEach(node => node.classList.add('visible'));
+            }
+
+            /**
+             * Foundation Toggle Logic (Restored & Enhanced)
+             */
+            static toggleDrawer(tile) {
+                const isActive = tile.classList.contains('active');
+                
+                // Close all other tiles for clean UI
+                document.querySelectorAll('.monument-tile').forEach(t => {
+                    t.classList.remove('active');
+                });
+
+                if (!isActive) {
+                    tile.classList.add('active');
+                    // Scroll into view if needed
+                    tile.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+
+            /**
+             * Header Scroll Logic
+             */
+            static _setupScrollEvents() {
+                this.nodes.engine.addEventListener('scroll', () => {
+                    const st = this.nodes.engine.scrollTop;
+                    
+                    // Hide header on down-scroll, show on up-scroll
+                    if (st > this.state.lastScroll && st > 150) {
+                        if (!this.state.headerHidden) {
+                            this.nodes.header.classList.add('is-hidden');
+                            this.state.headerHidden = true;
+                        }
+                    } else {
+                        if (this.state.headerHidden) {
+                            this.nodes.header.classList.remove('is-hidden');
+                            this.state.headerHidden = false;
+                        }
+                    }
+                    this.state.lastScroll = st <= 0 ? 0 : st;
+                }, { passive: true });
+            }
+
+            /**
+             * Navigation Binding
+             */
+            static _setupSmoothScroll() {
+                this.nodes.navItems.forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const id = link.getAttribute('href');
+                        document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+                    });
+                });
+            }
+
+            static _initialReveal() {
+                // Ensure first screen is visible immediately
+                const first = document.getElementById('v-portal');
+                this._revealNodes(first);
+            }
+        }
+
+        // Initialize Engine
+        window.AionSystem = AionSystem;
+    </script>
+</body>
+</html>
