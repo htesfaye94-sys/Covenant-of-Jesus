@@ -9,11 +9,11 @@
     
     <style>
         :root {
-            --espresso: #2c1a1a; 
-            --gold: #d4a373;      
-            --gold-light: rgba(212, 163, 115, 0.1);
+            --espresso: #1a0f0f; 
+            --gold: #c5a059;      
+            --gold-bright: #e9d5a3;
             --parchment: #fdfaf5;
-            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.03);
             --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
@@ -21,240 +21,233 @@
         
         body { 
             font-family: 'Faustina', serif; 
-            background-color: var(--parchment); 
+            background-color: var(--espresso); 
             color: var(--espresso); 
-            overflow: hidden; /* App-like feel */
+            overflow: hidden; 
             height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        /* --- STUNNING BILINGUAL NAVIGATION --- */
+        /* --- SOPHISTICATED NAVIGATION --- */
         header {
-            background: var(--espresso);
-            padding: 20px 0;
-            border-bottom: 3px solid var(--gold);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            background: linear-gradient(to bottom, #2c1a1a, #1a0f0f);
+            padding: 25px 0;
+            border-bottom: 1px solid var(--gold);
             z-index: 1000;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
         }
 
         nav {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 12px;
             overflow-x: auto;
-            padding: 0 20px;
+            padding: 0 15px;
         }
 
-        nav button {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(212, 163, 115, 0.3);
-            color: white;
-            padding: 12px 25px;
+        .nav-btn {
+            background: rgba(197, 160, 89, 0.05);
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            color: var(--gold-bright);
+            padding: 14px 22px;
             cursor: pointer;
-            border-radius: 8px;
+            border-radius: 4px;
             transition: var(--transition);
-            min-width: 130px;
+            min-width: 140px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
         }
 
-        nav button h4 { font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; }
-        nav button span { font-family: 'Noto Sans Ethiopic'; font-size: 0.75rem; color: var(--gold); display: block; margin-top: 4px; }
+        .nav-btn h4 { font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; }
+        .nav-btn span { font-family: 'Noto Sans Ethiopic'; font-size: 0.75rem; opacity: 0.6; }
 
-        nav button:hover { background: rgba(212, 163, 115, 0.1); border-color: var(--gold); transform: translateY(-3px); }
-        nav button.active { background: var(--gold); border-color: var(--white); }
-        nav button.active h4 { color: var(--espresso); }
-        nav button.active span { color: var(--espresso); opacity: 0.8; }
+        .nav-btn:hover { background: rgba(197, 160, 89, 0.15); border-color: var(--gold); transform: translateY(-2px); }
+        .nav-btn.active { background: var(--gold); color: var(--espresso); border-color: var(--white); box-shadow: 0 0 20px rgba(197, 160, 89, 0.4); }
+        .nav-btn.active span { color: var(--espresso); opacity: 0.8; }
 
-        /* --- MAIN CONTENT AREA --- */
-        main { flex: 1; overflow-y: auto; position: relative; }
+        /* --- MAIN ARCHIVE AREA --- */
+        main { 
+            flex: 1; 
+            overflow-y: auto; 
+            background: radial-gradient(circle at center, #2c1a1a 0%, #0d0606 100%);
+            position: relative;
+        }
 
         .pane { 
             display: none; 
             width: 100%; 
-            max-width: 1400px; 
+            max-width: 1300px; 
             margin: auto; 
-            padding: 60px 40px;
-            animation: paneFade 0.6s ease forwards;
+            padding: 60px 30px;
+            animation: paneEntrance 0.7s ease-out forwards;
         }
         .pane.active { display: block; }
 
-        @keyframes paneFade { 
-            from { opacity: 0; transform: scale(0.98); } 
-            to { opacity: 1; transform: scale(1); } 
+        @keyframes paneEntrance { 
+            from { opacity: 0; filter: blur(10px); transform: translateY(20px); } 
+            to { opacity: 1; filter: blur(0); transform: translateY(0); } 
         }
 
-        /* --- HOME HERO SECTION --- */
-        #home-pane { text-align: center; padding: 100px 20px; }
+        /* --- HOME SECTION: THE FRONTISPIECE --- */
+        #home-pane { height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
         
-        .hero-graphic {
+        .hero-card {
+            background: rgba(255,255,255,0.02);
+            backdrop-filter: blur(20px);
+            padding: 60px 40px;
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            border-radius: 2px;
             position: relative;
-            display: inline-block;
-            margin-bottom: 40px;
+            max-width: 800px;
+            width: 90%;
         }
-        .main-logo {
-            width: 220px; height: 220px;
+
+        /* Ornamental Corners */
+        .hero-card::before, .hero-card::after {
+            content: ''; position: absolute; width: 40px; height: 40px; border: 2px solid var(--gold);
+        }
+        .hero-card::before { top: -10px; left: -10px; border-right: 0; border-bottom: 0; }
+        .hero-card::after { bottom: -10px; right: -10px; border-left: 0; border-top: 0; }
+
+        .logo-glow {
+            width: 180px; height: 180px;
             border-radius: 50%;
-            border: 5px solid var(--gold);
+            border: 2px solid var(--gold);
+            margin: 0 auto 30px;
+            overflow: hidden;
             background: white;
-            box-shadow: 0 0 60px rgba(212, 163, 115, 0.4);
-            padding: 5px;
-            transition: 0.5s ease;
+            box-shadow: 0 0 40px rgba(197, 160, 89, 0.2);
         }
-        .hero-title { font-family: 'Cinzel', serif; font-size: 4rem; letter-spacing: 8px; margin-bottom: 10px; color: var(--espresso); }
-        .hero-subtitle { font-family: 'Noto Sans Ethiopic'; font-size: 2.8rem; color: var(--gold); font-weight: 700; margin-bottom: 30px; }
-        
-        .hero-divider {
-            width: 100px; height: 2px;
-            background: var(--gold);
-            margin: 20px auto;
-            position: relative;
-        }
-        .hero-divider::after { content: '◈'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--parchment); padding: 0 10px; color: var(--gold); }
+        .logo-glow img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* --- PROFESSIONAL BILINGUAL SPLIT --- */
-        .split-layout {
+        .hero-card h1 { font-family: 'Cinzel', serif; font-size: 3.2rem; color: white; letter-spacing: 6px; margin-bottom: 10px; }
+        .hero-card h2 { font-family: 'Noto Sans Ethiopic'; font-size: 2.5rem; color: var(--gold); font-weight: 700; margin-bottom: 25px; }
+
+        /* --- BILINGUAL CONTENT LAYOUT --- */
+        .academic-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 60px;
-            margin-top: 40px;
-            text-align: justify;
+            background: var(--parchment);
+            padding: 60px;
+            border-radius: 4px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
         }
 
-        .side-amharic { font-family: 'Noto Sans Ethiopic'; font-size: 1.3rem; line-height: 2; border-right: 1px solid var(--gold-light); padding-right: 50px; }
-        .side-english { font-size: 1.15rem; line-height: 1.9; padding-left: 10px; color: #4e342e; font-style: italic; }
+        .side-am { font-family: 'Noto Sans Ethiopic'; font-size: 1.3rem; line-height: 2.2; border-right: 1px solid rgba(0,0,0,0.1); padding-right: 40px; text-align: justify; }
+        .side-en { font-size: 1.2rem; line-height: 2; padding-left: 10px; color: #3d2b1f; font-style: italic; text-align: justify; }
 
-        .section-header { font-family: 'Cinzel', serif; font-size: 2.2rem; text-align: center; border-bottom: 1px solid var(--gold-light); padding-bottom: 20px; margin-bottom: 40px; }
+        .pane-header { font-family: 'Cinzel', serif; font-size: 2rem; color: var(--gold-bright); text-align: center; margin-bottom: 40px; letter-spacing: 4px; }
 
         /* --- LIBRARY CARDS --- */
-        .lib-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 30px; }
-        .lib-card { 
-            background: white; padding: 40px 30px; 
-            border: 1px solid rgba(0,0,0,0.05); 
-            text-decoration: none; color: inherit;
-            transition: var(--transition); border-top: 6px solid var(--espresso);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.03);
+        .library-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .archive-card { 
+            background: #fff; padding: 40px; 
+            text-decoration: none; color: var(--espresso);
+            transition: var(--transition); border-bottom: 4px solid var(--espresso);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
-        .lib-card:hover { transform: translateY(-10px); border-top-color: var(--gold); box-shadow: 0 20px 45px rgba(0,0,0,0.08); }
-        .lib-card h4 { font-family: 'Cinzel', serif; font-size: 1.1rem; margin-bottom: 15px; }
-        .lib-card span { font-family: 'Noto Sans Ethiopic'; font-size: 1rem; color: var(--gold); display: block; }
+        .archive-card:hover { transform: translateY(-10px); border-bottom-color: var(--gold); }
+        .archive-card h4 { font-family: 'Cinzel', serif; font-size: 1rem; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .archive-card span { font-family: 'Noto Sans Ethiopic'; color: var(--gold); font-weight: bold; }
 
-        footer { background: var(--espresso); color: #8d6e63; text-align: center; padding: 30px; font-size: 0.8rem; letter-spacing: 3px; font-weight: bold; }
+        footer { background: #000; color: #6e5a4e; text-align: center; padding: 25px; font-size: 0.75rem; letter-spacing: 4px; border-top: 1px solid #222; }
 
-        /* --- MOBILE OPTIMIZATION --- */
-        @media (max-width: 850px) {
-            .split-layout { grid-template-columns: 1fr; gap: 40px; }
-            .side-amharic { border-right: none; border-bottom: 1px solid var(--gold-light); padding-right: 0; padding-bottom: 40px; }
-            .hero-title { font-size: 2.2rem; }
-            .hero-subtitle { font-size: 1.8rem; }
-            .main-logo { width: 160px; height: 160px; }
-            nav button { min-width: 100px; padding: 10px 15px; }
+        /* --- IPHONE 11 OPTIMIZATION --- */
+        @media (max-width: 900px) {
+            .academic-grid { grid-template-columns: 1fr; padding: 30px; gap: 40px; }
+            .side-am { border-right: none; border-bottom: 1px solid rgba(0,0,0,0.1); padding-right: 0; padding-bottom: 40px; }
+            .hero-card h1 { font-size: 2rem; }
+            .hero-card h2 { font-size: 1.8rem; }
+            .nav-btn { min-width: 110px; padding: 10px; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <nav id="main-nav">
-            <button class="nav-btn active" onclick="showPane('home-pane', this)"><h4>Home</h4><span>ቤት</span></button>
-            <button class="nav-btn" onclick="showPane('mission-pane', this)"><h4>Mission</h4><span>ተልዕኮ</span></button>
-            <button class="nav-btn" onclick="showPane('about-pane', this)"><h4>About</h4><span>ጥናት</span></button>
-            <button class="nav-btn" onclick="showPane('library-pane', this)"><h4>Library</h4><span>ማኅደር</span></button>
-            <button class="nav-btn" onclick="showPane('contact-pane', this)"><h4>Contact</h4><span>መገናኛ</span></button>
+        <nav>
+            <button class="nav-btn active" onclick="navTo('home-pane', this)"><h4>Home</h4><span>ቤት</span></button>
+            <button class="nav-btn" onclick="navTo('mission-pane', this)"><h4>Mission</h4><span>ተልዕኮ</span></button>
+            <button class="nav-btn" onclick="navTo('about-pane', this)"><h4>Focus</h4><span>ጥናት</span></button>
+            <button class="nav-btn" onclick="navTo('library-pane', this)"><h4>Archive</h4><span>ማኅደር</span></button>
+            <button class="nav-btn" onclick="navTo('contact-pane', this)"><h4>Connect</h4><span>መገናኛ</span></button>
         </nav>
     </header>
 
     <main>
         <div id="home-pane" class="pane active">
-            <div class="hero-graphic">
-                <img src="logo.jpg" alt="Logo" class="main-logo">
+            <div class="hero-card">
+                <div class="logo-glow">
+                    <img src="logo.jpg" alt="Covenant of Jesus">
+                </div>
+                <h1>Covenant of Jesus</h1>
+                <h2>ኪዳን ዘኢየሱስ</h2>
+                <p style="color: var(--gold-bright); letter-spacing: 5px; text-transform: uppercase; font-size: 0.8rem; opacity: 0.8;">
+                    Oriental Orthodox Theology • Patristics • Philosophy
+                </p>
             </div>
-            <h1 class="hero-title">Covenant of Jesus</h1>
-            <h2 class="hero-subtitle">ኪዳን ዘኢየሱስ</h2>
-            <div class="hero-divider"></div>
-            <p style="font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; opacity: 0.7;">Theology • Patristics • Philosophy</p>
         </div>
 
         <div id="mission-pane" class="pane">
-            <h2 class="section-header">The Sacred Mission / የተልዕኮ መግለጫ</h2>
-            <div class="split-layout">
-                <div class="side-amharic">
+            <h2 class="pane-header">Sacred Mission / የተልዕኮ መግለጫ</h2>
+            <div class="academic-grid">
+                <div class="side-am">
                     የዚህ ድረ-ገጽ ዋነኛ ዓላማ የጥንታዊቷን የኦሬንታል ኦርቶዶክስ ተዋሕዶ ቤተክርስቲያንን እምነትና ትምህርት በአእምሮአዊ ሙግት መከላከል ነው። ጥንታዊውን የአባቶች ጥበብ ከዘመናዊው የፍልስፍና ምርምር ጋር በማገናኘት ለእውነት ፈላጊዎች ሁሉ ጥልቅ ምላሽ ለመስጠት እንተጋለን።
                 </div>
-                <div class="side-english">
-                    The primary objective of this portal is the intellectual preservation and defense of the Oriental Orthodox faith. By bridging ancient Patristic wisdom with modern philosophical inquiry, we strive to provide rigorous answers for all seekers of Divine Truth.
+                <div class="side-en">
+                    This portal is dedicated to the intellectual defense of the Oriental Orthodox faith. By integrating ancient Patristic wisdom with contemporary philosophical inquiry, we provide rigorous scholarly answers for those in pursuit of Divine Truth.
                 </div>
             </div>
         </div>
 
         <div id="about-pane" class="pane">
-            <h2 class="section-header">Academic Pursuit / ጥናትና ምርምር</h2>
-            <div class="split-layout">
-                <div class="side-amharic">
+            <h2 class="pane-header">Academic Scope / ጥናትና ምርምር</h2>
+            <div class="academic-grid">
+                <div class="side-am">
                     ትኩረታችን በዋናነት በታላቁ ቅዱስ ቄርሎስ እና በቅዱስ ሳዊሮስ ዘአንጾኪያ ነገረ ክርስቶስ (Christology) ላይ ያተኮረ ነው። በተጨማሪም የሜታ-ፊዚክስ እና የሎጂክ ትምህርቶችን በመጠቀም የፈጣሪን ህልውና እና የምሥጢረ ሥጋዌን ጥልቀት እንመረምራለን።
                 </div>
-                <div class="side-english">
-                    Our academic focus centers on the high Christology of St. Cyril of Alexandria and St. Severus of Antioch. Utilizing the specialized tools of Metaphysics and Logic, we explore the necessary existence of the Creator and the profound depths of the Incarnate Logos.
+                <div class="side-en">
+                    Our academic focus centers upon the high Christology of St. Cyril of Alexandria and St. Severus of Antioch. Utilizing the analytical frameworks of Metaphysics and Logic, we examine the necessary existence of the Godhead and the profound mystery of the Incarnate Logos.
                 </div>
             </div>
         </div>
 
         <div id="library-pane" class="pane">
-            <h2 class="section-header">Theological Library / የጥናት ማኅደር</h2>
-            <div class="lib-grid">
-                <a href="library/catechism.html" class="lib-card">
-                    <h4>Prayers for the Departed</h4>
-                    <span>ለሙታን የሚደረግ ጸሎት</span>
-                </a>
-                <a href="library/ontological.html" class="lib-card">
-                    <h4>Ontological Argument</h4>
-                    <span>የአምላክ ህልውና ሙግት</span>
-                </a>
-                <a href="library/rebaptism.html" class="lib-card">
-                    <h4>On Re-baptism</h4>
-                    <span>ስለ ዳግም ጥምቀት</span>
-                </a>
-                <a href="library/severus.html" class="lib-card">
-                    <h4>Severus of Antioch</h4>
-                    <span>ቅዱስ ሳዊሮስ ዘአንጾኪያ</span>
-                </a>
-                <a href="library/confession.html" class="lib-card">
-                    <h4>Search for Meaning</h4>
-                    <span>የሕይወት ትርጉም ፍለጋ</span>
-                </a>
-                <a href="library/josippon.html" class="lib-card">
-                    <h4>Josippon Study</h4>
-                    <span>መጽሐፈ ዮሴፍ ወልደ ኮርዮን</span>
-                </a>
+            <h2 class="pane-header">Theological Archive / የጥናት ማኅደር</h2>
+            <div class="library-grid">
+                <a href="library/catechism.html" class="archive-card"><h4>Prayers for the Departed</h4><span>ለሙታን የሚደረግ ጸሎት</span></a>
+                <a href="library/ontological.html" class="archive-card"><h4>Ontological Argument</h4><span>የአምላክ ህልውና ሙግት</span></a>
+                <a href="library/rebaptism.html" class="archive-card"><h4>On Re-baptism</h4><span>ስለ ዳግም ጥምቀት</span></a>
+                <a href="library/severus.html" class="archive-card"><h4>Severus of Antioch</h4><span>ቅዱስ ሳዊሮስ ዘአንጾኪያ</span></a>
+                <a href="library/confession.html" class="archive-card"><h4>Search for Meaning</h4><span>የሕይወት ትርጉም ፍለጋ</span></a>
+                <a href="library/josippon.html" class="archive-card"><h4>Josippon Study</h4><span>መጽሐፈ ዮሴፍ ወልደ ኮርዮን</span></a>
             </div>
         </div>
 
         <div id="contact-pane" class="pane">
-            <h2 class="section-header">Fellowship / ኅብረት</h2>
-            <div style="text-align: center; margin-top: 50px;">
-                <p style="font-size: 1.4rem; margin-bottom: 30px;">Engage with our community for daily theological discourse:</p>
-                <a href="https://t.me/KidanZeIyesus" target="_blank" style="display: inline-block; background: var(--espresso); color: var(--gold); padding: 25px 60px; text-decoration: none; font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: bold; border: 2px solid var(--gold); border-radius: 50px;">Visit Telegram Channel</a>
-                <p style="margin-top: 80px; font-family: 'Cinzel'; letter-spacing: 5px; opacity: 0.6; font-weight: bold;">CONTRA MUNDUM</p>
+            <h2 class="pane-header">Fellowship / ኅብረት</h2>
+            <div style="max-width: 600px; margin: auto; text-align: center; color: white;">
+                <p style="font-size: 1.3rem; margin-bottom: 40px; opacity: 0.9;">Join our community for rigorous daily theological discourse and Patristic study.</p>
+                <a href="https://t.me/KidanZeIyesus" target="_blank" style="display: inline-block; background: var(--gold); color: #000; padding: 20px 50px; text-decoration: none; font-family: 'Cinzel', serif; font-weight: bold; border-radius: 2px; transition: 0.3s;">Access Telegram Channel</a>
+                <div style="margin-top: 80px; font-family: 'Cinzel'; letter-spacing: 6px; color: var(--gold); font-size: 1.1rem;">CONTRA MUNDUM</div>
             </div>
         </div>
     </main>
 
     <footer>
-        Covenant of Jesus &copy; 2026 • Athanasius Contra Mundum
+        COVENANT OF JESUS &copy; 2026 • ATHANASIUS CONTRA MUNDUM
     </footer>
 
     <script>
-        function showPane(paneId, btn) {
-            // Hide all panes
+        function navTo(id, btn) {
             document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
-            // Deactivate all buttons
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            
-            // Show target pane and button
-            document.getElementById(paneId).classList.add('active');
+            document.getElementById(id).classList.add('active');
             btn.classList.add('active');
-            
-            // Scroll internal main area back to top
             document.querySelector('main').scrollTop = 0;
         }
     </script>
