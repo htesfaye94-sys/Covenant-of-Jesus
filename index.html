@@ -2,7 +2,7 @@
 <html lang="am">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Covenant of Jesus | ኪዳን ዘኢየሱስ</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Faustina:ital,wght@0,400;0,700;1,400&family=Noto+Sans+Ethiopic:wght@400;700&display=swap" rel="stylesheet">
@@ -11,10 +11,10 @@
         :root {
             --espresso: #2c1a1a; 
             --gold: #d4a373;      
-            --gold-light: #e6c5a3;
+            --gold-muted: rgba(212, 163, 115, 0.2);
             --parchment: #fdfaf5;
             --white: #ffffff;
-            --shadow: 0 20px 40px rgba(0,0,0,0.3);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -25,81 +25,71 @@
             background-color: var(--espresso); 
             color: var(--espresso); 
             overflow-x: hidden; 
-            line-height: 1.7;
         }
 
-        /* Sophisticated Navigation */
+        /* Fixed Professional Header */
         nav { 
             position: fixed; top: 0; width: 100%; 
-            background: rgba(44, 26, 26, 0.95); 
-            backdrop-filter: blur(15px); 
-            padding: 20px 0; z-index: 2000; 
-            border-bottom: 1px solid rgba(212, 163, 115, 0.3); 
-            display: flex; justify-content: center; gap: 30px; 
+            background: rgba(44, 26, 26, 0.96); 
+            backdrop-filter: blur(10px); 
+            padding: 18px 0; z-index: 2000; 
+            border-bottom: 1px solid var(--gold-muted); 
+            display: flex; justify-content: center; gap: 25px; 
         }
         nav a { 
             color: var(--white); text-decoration: none; 
             font-size: 0.7rem; text-transform: uppercase; 
             font-weight: 700; letter-spacing: 2px; 
-            transition: 0.4s ease; opacity: 0.8;
+            transition: var(--transition); opacity: 0.7;
         }
-        nav a:hover { color: var(--gold); opacity: 1; transform: translateY(-2px); }
+        nav a:hover { color: var(--gold); opacity: 1; }
 
-        /* Panel System */
+        /* Sophisticated Panel System */
         .panel { 
             min-height: 100vh; width: 100%; 
             display: flex; flex-direction: column; 
             justify-content: center; align-items: center; 
             padding: 120px 20px; position: relative; 
-            overflow: hidden;
         }
         .panel-dark { background-color: var(--espresso); color: var(--white); }
         .panel-light { background-color: var(--parchment); }
 
-        /* Hero Section Styling */
+        /* Hero Styling */
         #home { 
-            background: linear-gradient(rgba(44, 26, 26, 0.8), rgba(44, 26, 26, 0.9)), 
+            background: linear-gradient(rgba(44, 26, 26, 0.85), rgba(44, 26, 26, 0.9)), 
                         url('https://images.unsplash.com/photo-1544427928-c49cdfebf4ad?auto=format&fit=crop&w=1920&q=80'); 
             background-size: cover; background-attachment: fixed; text-align: center; 
         }
-        
-        .logo-container {
-            position: relative;
-            margin-bottom: 40px;
-        }
         .logo-box { 
-            width: 180px; height: 180px; 
+            width: 170px; height: 170px; 
             border-radius: 50%; border: 3px solid var(--gold); 
-            background: white; overflow: hidden; 
-            box-shadow: 0 0 50px rgba(212, 163, 115, 0.3);
-            transition: 0.5s ease;
+            margin-bottom: 30px; background: white; overflow: hidden; 
+            box-shadow: 0 15px 50px rgba(0,0,0,0.5);
+            transition: var(--transition);
         }
-        .logo-box:hover { transform: scale(1.05); border-color: var(--white); }
+        .logo-box:hover { transform: scale(1.03); }
         .logo-box img { width: 100%; height: 100%; object-fit: cover; }
 
-        h1 { font-family: 'Cinzel', serif; font-size: 3.5rem; letter-spacing: 6px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
+        h1 { font-family: 'Cinzel', serif; font-size: 3.5rem; letter-spacing: 5px; }
         .ethiopian-hero { 
             font-family: 'Noto Sans Ethiopic', sans-serif; 
             font-size: 2.8rem; color: var(--gold); 
-            margin: 15px 0; font-weight: 700; 
-            letter-spacing: 1px;
+            margin: 10px 0; font-weight: 700; 
         }
 
-        /* Section Titles */
         .section-title { 
-            font-family: 'Cinzel', serif; font-size: 2.8rem; 
-            margin-bottom: 30px; text-align: center; 
-            position: relative;
+            font-family: 'Cinzel', serif; font-size: 2.5rem; 
+            margin-bottom: 40px; text-align: center; 
         }
         .section-title::after { 
-            content: ''; display: block; width: 60px; height: 2px; 
-            background: var(--gold); margin: 20px auto; 
+            content: '◈'; display: block; color: var(--gold); 
+            font-size: 1.2rem; margin-top: 10px; 
         }
 
-        /* Sophisticated Library Cards */
+        /* Library Cards - Professional Grid */
         .lib-grid { 
             display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-            gap: 30px; width: 100%; max-width: 1200px; margin-top: 50px; 
+            gap: 25px; width: 100%; max-width: 1200px; 
         }
         .lib-card { 
             background: var(--white); 
@@ -107,41 +97,36 @@
             border: 1px solid rgba(44, 26, 26, 0.05);
             box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
             text-decoration: none; color: var(--espresso) !important; 
-            transition: 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-            position: relative;
+            transition: var(--transition);
+            border-top: 5px solid var(--espresso);
         }
-        .lib-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 0;
-            background: var(--gold); transition: 0.4s ease; z-index: -1;
+        .lib-card:hover { 
+            transform: translateY(-10px); 
+            border-top-color: var(--gold);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
-        .lib-card:hover { transform: translateY(-12px); color: var(--white) !important; border-color: var(--gold); }
-        .lib-card:hover h3, .lib-card:hover p { color: var(--white); }
-        .lib-card:hover::before { height: 100%; }
-        
-        .lib-card h3 { font-family: 'Cinzel', 'Noto Sans Ethiopic', serif; margin-bottom: 15px; font-size: 1.3rem; transition: 0.3s; }
-        .lib-card p { font-size: 0.95rem; opacity: 0.8; transition: 0.3s; }
+        .lib-card h3 { font-family: 'Cinzel', 'Noto Sans Ethiopic', serif; margin-bottom: 15px; font-size: 1.2rem; }
+        .lib-card p { font-size: 0.95rem; opacity: 0.8; line-height: 1.6; }
 
         /* Pillar Styling */
         .pillar-card { 
-            text-align: center; padding: 50px 30px; 
-            border: 1px solid rgba(212, 163, 115, 0.2); 
-            background: rgba(255,255,255,0.02);
-            transition: 0.4s;
+            text-align: center; padding: 40px; 
+            background: rgba(255, 255, 255, 0.03); 
+            border: 1px solid var(--gold-muted);
         }
-        .pillar-card:hover { background: rgba(212, 163, 115, 0.05); border-color: var(--gold); }
-        .pillar-card i { font-size: 3.5rem; color: var(--gold); margin-bottom: 25px; }
+        .pillar-card i { font-size: 3rem; color: var(--gold); margin-bottom: 20px; }
 
         footer { 
-            background: #120a0a; color: #8d6e63; 
+            background: #150d0d; color: #8d6e63; 
             text-align: center; padding: 80px 20px; 
-            font-size: 0.85rem; letter-spacing: 3px; border-top: 1px solid rgba(212, 163, 115, 0.1);
+            font-size: 0.8rem; letter-spacing: 2px;
         }
 
         @media (max-width: 768px) {
             h1 { font-size: 2.2rem; }
             .ethiopian-hero { font-size: 1.8rem; }
             .panel { padding: 100px 20px; }
-            nav { gap: 12px; }
+            nav { gap: 15px; }
             nav a { font-size: 0.6rem; letter-spacing: 1px; }
         }
     </style>
@@ -152,63 +137,72 @@
         <a href="#home">Home</a>
         <a href="#mission">Mission</a>
         <a href="#about">About</a>
-        <a href="#pillars">Foundations</a>
         <a href="#library">Library</a>
         <a href="#contact">Contact</a>
     </nav>
 
     <section class="panel panel-dark" id="home">
-        <div class="logo-container">
-            <div class="logo-box">
-                <img src="logo.jpg" alt="Logo">
-            </div>
+        <div class="logo-box">
+            <img src="logo.jpg" alt="Covenant of Jesus Logo">
         </div>
         <h1>Covenant of Jesus</h1>
         <div class="ethiopian-hero">ኪዳን ዘኢየሱስ</div>
-        <p style="opacity: 0.7; font-style: italic; letter-spacing: 3px; text-transform: uppercase; font-size: 0.9rem;">Theology • Patristics • Philosophy</p>
+        <p style="opacity: 0.7; font-style: italic; letter-spacing: 2px;">Theology • Patristics • Philosophy</p>
     </section>
 
     <section class="panel panel-light" id="mission">
         <h2 class="section-title">The Sacred Mission</h2>
         <div style="max-width:800px; text-align:center; font-size:1.3rem; line-height:2;">
-            <p>Our work is dedicated to the intellectual preservation and defense of the <strong>Oriental Orthodox</strong> faith. By synthesizing ancient Patristic wisdom with modern philosophical rigor, we seek to provide a sanctuary for those pursuing the depths of Divine Truth.</p>
+            <p>Our mission is the intellectual preservation and defense of the <strong>Oriental Orthodox</strong> faith. We bridge ancient Patristic wisdom with modern philosophical discourse, providing a sanctuary for rigorous inquiry and spiritual devotion.</p>
         </div>
     </section>
 
     <section class="panel panel-dark" id="about">
-        <h2 class="section-title">Academic Focus</h2>
+        <h2 class="section-title">Academic Pursuit</h2>
         <div style="max-width:850px; text-align:center; font-size:1.2rem; line-height:2;">
-            <p>Centering on the high Christology of <strong>St. Cyril of Alexandria</strong> and <strong>St. Severus of Antioch</strong>, our research explores the Miaphysite tradition. Through the lens of Metaphysics and Logic, we investigate the necessary existence of the Creator and the mystery of the Incarnate Logos.</p>
+            <p>Dedicated to the study of the Church Fathers, specifically the Christology of <strong>St. Cyril of Alexandria</strong> and <strong>St. Severus of Antioch</strong>. Through the lens of Metaphysics and Philosophy, we explore the necessary existence of the Creator and the profound depths of the Incarnate Word.</p>
         </div>
     </section>
 
     <section class="panel panel-light" id="pillars">
-        <h2 class="section-title">Intellectual Foundations</h2>
-        <div class="grid-3">
-            <div class="pillar-card"><i class="fas fa-scroll"></i><h3>Patristics</h3><p>Systematic study of the early Church Fathers and the preservation of the Nicene-Constantinopolitan faith.</p></div>
-            <div class="pillar-card"><i class="fas fa-brain"></i><h3>Philosophy</h3><p>Rigorous engagement with classical metaphysics, logical proofs, and the epistemology of belief.</p></div>
-            <div class="pillar-card"><i class="fas fa-book-open"></i><h3>Scripture</h3><p>Deepening spiritual insight through the study of sacred texts and their ancient linguistic roots.</p></div>
+        <h2 class="section-title">Foundations of Truth</h2>
+        <div class="lib-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+            <div class="pillar-card">
+                <i class="fas fa-scroll"></i>
+                <h3 style="font-family:'Cinzel'; margin-bottom:15px;">Patristics</h3>
+                <p>Systematic study of the pillars of Miaphysite theology and early Church history.</p>
+            </div>
+            <div class="pillar-card">
+                <i class="fas fa-brain"></i>
+                <h3 style="font-family:'Cinzel'; margin-bottom:15px;">Philosophy</h3>
+                <p>Engaging with classical metaphysics, logic, and the intellectual case for the Divine.</p>
+            </div>
+            <div class="pillar-card">
+                <i class="fas fa-book-open"></i>
+                <h3 style="font-family:'Cinzel'; margin-bottom:15px;">Scripture</h3>
+                <p>Deepening spiritual understanding through the study of sacred texts and ancient traditions.</p>
+            </div>
         </div>
     </section>
 
     <section class="panel panel-dark" id="library">
         <h2 class="section-title" style="color: white;">Theological Library</h2>
         <div class="lib-grid">
-            <a href="library/catechism.html" class="lib-card"><h3>Prayers for the Departed</h3><p>Coptic Catechism and the state of souls after death.</p></a>
-            <a href="library/ontological.html" class="lib-card"><h3>Ontological Argument</h3><p>Alvin Plantinga's modal logic for the Maximally Great Being.</p></a>
-            <a href="library/rebaptism.html" class="lib-card"><h3>On Re-baptism</h3><p>The sacramental history and Patristic debate from the 3rd Century.</p></a>
-            <a href="library/severus.html" class="lib-card"><h3>Severus of Antioch</h3><p>The defense of the Crown of the Syrians.</p></a>
-            <a href="library/confession.html" class="lib-card"><h3>Search for Meaning</h3><p>A personal movement from nihilism to the Incarnate Word.</p></a>
-            <a href="library/josippon.html" class="lib-card"><h3>Josippon Study</h3><p>A historical analysis of the Pseudo-Josephus text (ዮሴፍ ወልደ ኮርዮን).</p></a>
+            <a href="library/catechism.html" class="lib-card"><h3>Prayers for the Departed</h3><p>Coptic Catechism regarding the state of souls after death.</p></a>
+            <a href="library/ontological.html" class="lib-card"><h3>Ontological Argument</h3><p>Alvin Plantinga's logic for the Maximally Great Being.</p></a>
+            <a href="library/rebaptism.html" class="lib-card"><h3>On Re-baptism</h3><p>Sacramental history and debate from the 3rd Century.</p></a>
+            <a href="library/severus.html" class="lib-card"><h3>Severus of Antioch</h3><p>The life and Christological defense of the Crown of the Syrians.</p></a>
+            <a href="library/confession.html" class="lib-card"><h3>Search for Meaning</h3><p>A personal journey from nihilism to the Light of Christ.</p></a>
+            <a href="library/josippon.html" class="lib-card"><h3>Josippon Study</h3><p>Historical analysis of the Pseudo-Josephus text (ዮሴፍ ወልደ ኮርዮን).</p></a>
             <a href="library/unity.html" class="lib-card"><h3>Orthodox Unity</h3><p>Dialogue between the Oriental and Eastern families.</p></a>
-            <a href="library/epistemology.html" class="lib-card"><h3>Church Epistemology</h3><p>Understanding truth through the Infallible authority of the Church.</p></a>
+            <a href="library/epistemology.html" class="lib-card"><h3>Church Epistemology</h3><p>Knowing the truth of Christ through the Infallible Church.</p></a>
         </div>
     </section>
 
     <section class="panel panel-light" id="contact">
         <h2 class="section-title">Contact</h2>
         <div style="text-align:center;">
-            <p style="font-size: 1.2rem; margin-bottom: 10px;">Connect for research, discourse, or community fellowship:</p>
+            <p style="font-size: 1.2rem; margin-bottom: 10px;">For research inquiries or community fellowship:</p>
             <p>Telegram: <a href="https://t.me/KidanZeIyesus" style="color:var(--espresso); text-decoration:none; font-weight:bold; border-bottom: 2px solid var(--gold);">@KidanZeIyesus</a></p>
             <p style="margin-top:40px; opacity:0.6; font-family: 'Cinzel', serif; font-weight: bold; letter-spacing: 2px;">CONTRA MUNDUM</p>
         </div>
