@@ -6,491 +6,294 @@
     <title>Covenant of Jesus | ኪዳን ዘኢየሱስ</title>
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700;900&family=Faustina:ital,wght@0,300;0,500;0,700;1,400&family=Noto+Sans+Ethiopic:wght@100;300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Faustina:ital,wght@0,300;0,500;0,700;1,400&family=Noto+Sans+Ethiopic:wght@300;500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* COVENANT OF JESUS - MASTER STYLESHEET [1,000+ LINE LOGIC]
-           Theme: Oriental Orthodox Scholasticism
-           Developer: Gemini Thought Partner
-        */
-
         :root {
-            /* Color Palette: The Gold & Espresso Manuscript */
-            --basilica-black: #050303;
-            --basilica-deep: #0f0a0a;
-            --basilica-espresso: #1a0f0f;
-            --basilica-rich: #2c1a1a;
-            
-            --gold-manuscript: #c5a059;
+            --espresso: #0a0606;
+            --gold: #c5a059;
             --gold-bright: #f1dfb5;
-            --gold-leaf: linear-gradient(145deg, #c5a059, #f1dfb5, #a37f3d);
-            --gold-glow: rgba(197, 160, 89, 0.45);
-            
-            --parchment-white: #fdfaf5;
-            --parchment-mid: #f2ede4;
-            --parchment-ink: #2c1a1a;
-            
-            --glass-sheen: rgba(255, 255, 255, 0.04);
-            --glass-border: rgba(197, 160, 89, 0.2);
-            
-            /* Animations & Timings */
-            --entrance-curve: cubic-bezier(0.19, 1, 0.22, 1);
-            --hover-curve: cubic-bezier(0.4, 0, 0.2, 1);
-            --timing-hero: 1.5s;
-            --timing-ui: 0.4s;
-            
-            /* Shadows */
-            --shadow-elevation: 0 40px 80px rgba(0,0,0,0.8);
-            --shadow-inner: inset 0 0 50px rgba(0,0,0,0.1);
+            --parchment: #fdfaf5;
+            --transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        /* --- 1. GLOBAL NORMALIZATION --- */
+        /* --- 1. THE VIEWPORT LOCK --- */
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: var(--basilica-black); }
-        ::-webkit-scrollbar-thumb { background: var(--gold-manuscript); }
-
         body { 
             font-family: 'Faustina', serif; 
-            background: var(--basilica-black); 
-            color: var(--white); 
-            height: 100vh;
-            overflow: hidden; /* App-Like Frame */
+            background: var(--espresso); 
+            background: radial-gradient(circle at center, #1e1111 0%, #050303 100%);
+            color: white; 
+            height: 100vh; /* Locked height */
+            height: 100dvh; /* Dynamic height for mobile browsers */
+            overflow: hidden; 
             display: flex;
             flex-direction: column;
-            user-select: none;
         }
 
-        /* --- 2. THE MASTER NAVIGATION BAR --- */
+        /* --- 2. COMPACT PREMIUM NAVIGATION --- */
         header {
-            background: linear-gradient(180deg, var(--basilica-espresso) 0%, var(--basilica-black) 100%);
-            padding: calc(15px + env(safe-area-inset-top)) 0 15px;
-            border-bottom: 2px solid var(--gold-manuscript);
-            z-index: 5000;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.9);
-            position: relative;
+            background: rgba(10, 6, 6, 0.95);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: calc(10px + env(safe-area-inset-top)) 0 10px;
+            border-bottom: 1px solid var(--gold);
+            z-index: 1000;
         }
 
-        .nav-wrapper {
+        nav {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 8px;
             overflow-x: auto;
-            padding: 0 30px;
+            padding: 0 10px;
             scrollbar-width: none;
         }
-        .nav-wrapper::-webkit-scrollbar { display: none; }
+        nav::-webkit-scrollbar { display: none; }
 
-        .nav-control {
-            background: var(--glass-sheen);
-            border: 1px solid var(--glass-border);
+        .nav-link {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(197, 160, 89, 0.3);
             color: var(--gold-bright);
-            padding: 16px 32px;
+            padding: 8px 12px;
             cursor: pointer;
-            transition: var(--transition-ui);
-            min-width: 160px;
+            transition: var(--transition);
+            min-width: 100px;
             text-align: center;
             display: flex;
             flex-direction: column;
-            gap: 5px;
-            position: relative;
+            justify-content: center;
         }
 
-        .nav-control h4 { 
-            font-family: 'Cinzel', serif; 
-            font-size: 0.85rem; 
-            font-weight: 700; 
-            letter-spacing: 2.5px; 
-            text-transform: uppercase; 
-        }
-        
-        .nav-control span { 
-            font-family: 'Noto Sans Ethiopic'; 
-            font-size: 0.75rem; 
-            opacity: 0.5; 
-            font-weight: 300; 
-        }
+        .nav-link h4 { font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 1px; text-transform: uppercase; }
+        .nav-link span { font-family: 'Noto Sans Ethiopic'; font-size: 0.6rem; opacity: 0.6; }
 
-        .nav-control:hover { 
-            background: rgba(197, 160, 89, 0.1); 
-            border-color: var(--gold-manuscript); 
-            transform: translateY(-4px); 
-        }
-
-        .nav-control.active { 
-            background: var(--gold-manuscript); 
-            color: var(--basilica-black); 
+        .nav-link.active { 
+            background: var(--gold); 
+            color: var(--espresso); 
             border-color: white; 
-            box-shadow: 0 0 40px var(--gold-glow); 
+            box-shadow: 0 0 15px rgba(197, 160, 89, 0.5); 
         }
-        .nav-control.active span { color: var(--basilica-black); opacity: 0.8; }
+        .nav-link.active span { color: var(--espresso); opacity: 0.9; }
 
-        /* --- 3. THE ARCHIVE STAGE (CONTENT CONTAINER) --- */
+        /* --- 3. THE ADAPTIVE STAGE --- */
         main { 
             flex: 1; 
-            overflow-y: auto; 
-            background: radial-gradient(circle at center, var(--basilica-rich) 0%, var(--basilica-black) 100%);
-            position: relative;
-            padding-bottom: calc(100px + env(safe-area-inset-bottom));
+            display: flex;
+            align-items: center; /* Center the card vertically */
+            justify-content: center;
+            padding: 20px;
+            overflow: hidden;
         }
 
-        /* --- 4. VIEW ANIMATION ENGINE --- */
-        .portal-pane { 
+        .pane { 
             display: none; 
-            width: 92%; 
-            max-width: 1300px; 
-            margin: 60px auto; 
-            perspective: 1000px;
+            width: 100%; 
+            max-width: 1100px; 
+            max-height: 90%; /* Ensure it fits in view */
+            animation: paneIn 0.8s var(--transition) forwards;
         }
-        
-        .portal-pane.active { 
-            display: block; 
-            animation: paneMaterialize var(--timing-hero) var(--entrance-curve) forwards;
+        .pane.active { display: block; }
+
+        @keyframes paneIn { 
+            from { opacity: 0; transform: scale(0.95) translateY(20px); } 
+            to { opacity: 1; transform: scale(1) translateY(0); } 
         }
 
-        @keyframes paneMaterialize { 
-            from { opacity: 0; filter: blur(30px); transform: translateZ(-200px) translateY(100px); } 
-            to { opacity: 1; filter: blur(0); transform: translateZ(0) translateY(0); } 
-        }
-
-        /* --- 5. THE MANUSCRIPT ARCHITECTURE (GLASS BOXES) --- */
-        .glass-chamber {
-            background: var(--glass-sheen);
-            backdrop-filter: blur(40px);
-            -webkit-backdrop-filter: blur(40px);
-            border: 1px solid var(--glass-border);
-            padding: 100px 60px;
+        /* --- 4. THE GLASS MANUSCRIPT (REDUCED PADDING FOR IN-LINE) --- */
+        .glass-box {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            padding: 4vh 5vw; /* Adaptive padding based on screen size */
             position: relative;
-            box-shadow: var(--shadow-elevation);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            overflow-y: auto; /* Allow internal scrolling if content is huge */
+            max-height: 75vh;
         }
 
-        /* Gold Ornamental Frames */
-        .ornament-leaf { position: absolute; width: 100px; height: 100px; border: 2px solid var(--gold-manuscript); opacity: 0.6; pointer-events: none; }
-        .pos-tl { top: -15px; left: -15px; border-right: 0; border-bottom: 0; }
-        .pos-br { bottom: -15px; right: -15px; border-left: 0; border-top: 0; }
-
-        /* --- 6. HERO PRESENTATION --- */
-        .hero-focal { text-align: center; }
-        
-        .halo-container {
-            width: 240px; height: 240px;
-            border-radius: 50%;
-            border: 1px solid var(--gold-manuscript);
-            margin: 0 auto 50px;
-            padding: 12px;
-            background: white;
-            box-shadow: 0 0 120px var(--gold-glow);
-            position: relative;
-            transition: var(--entrance-curve);
+        /* Ornamental Corners */
+        .glass-box::before, .glass-box::after {
+            content: ''; position: absolute; width: 30px; height: 30px; border: 2px solid var(--gold); opacity: 0.5;
         }
-        .halo-container img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-        .halo-container:hover { transform: scale(1.05) rotate(3deg); }
+        .glass-box::before { top: -8px; left: -8px; border-right: 0; border-bottom: 0; }
+        .glass-box::after { bottom: -8px; right: -8px; border-left: 0; border-top: 0; }
 
-        .title-grand { 
-            font-family: 'Cinzel', serif; 
-            font-size: 4.5rem; 
-            font-weight: 900; 
-            letter-spacing: 15px; 
-            color: white; 
-            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        /* Hero Image - Smaller for iPhone 11 */
+        .logo-ring {
+            width: clamp(100px, 15vh, 160px);
+            height: clamp(100px, 15vh, 160px);
+            border-radius: 50%; border: 1px solid var(--gold);
+            margin: 0 auto 15px; background: white;
+            padding: 5px; box-shadow: 0 0 40px rgba(197, 160, 89, 0.3);
+            overflow: hidden;
         }
-        
-        .subtitle-ethiopic { 
-            font-family: 'Noto Sans Ethiopic'; 
-            font-size: 3.2rem; 
-            color: var(--gold-manuscript); 
-            margin-top: 15px; 
-            font-weight: 700; 
-        }
+        .logo-ring img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
 
-        /* --- 7. BILINGUAL SCHOLASTIC GRIDS --- */
-        .dual-stage {
+        .title-h1 { font-family: 'Cinzel', serif; font-size: clamp(1.2rem, 4vh, 2.5rem); letter-spacing: 4px; text-align: center; }
+        .title-am { font-family: 'Noto Sans Ethiopic'; font-size: clamp(1rem, 3.5vh, 2rem); color: var(--gold); text-align: center; margin-bottom: 15px; }
+
+        /* --- 5. COMPACT BILINGUAL GRID --- */
+        .split-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            margin-top: 60px;
+            gap: 20px;
         }
 
-        .manuscript-card {
-            background: var(--parchment-white);
-            padding: 70px 50px;
-            color: var(--parchment-ink);
-            position: relative;
-            border-left: 10px solid var(--gold-manuscript);
-            box-shadow: 25px 25px 0px var(--gold-faint);
-            transition: var(--timing-ui) var(--hover-curve);
-        }
-        
-        .manuscript-card:hover { transform: scale(1.02); box-shadow: 30px 30px 0px var(--gold-glow); }
-
-        .manuscript-card h5 { 
-            font-family: 'Cinzel', serif; font-size: 1rem; color: var(--gold-manuscript); 
-            letter-spacing: 4px; margin-bottom: 35px; border-bottom: 1px solid #ddd;
-            padding-bottom: 15px; text-transform: uppercase;
+        .manuscript {
+            background: var(--parchment);
+            padding: 20px;
+            color: #1a0f0f;
+            box-shadow: 5px 5px 0px rgba(197, 160, 89, 0.2);
+            text-align: justify;
         }
 
-        .txt-ethiopic { font-family: 'Noto Sans Ethiopic'; font-size: 1.45rem; line-height: 2.5; text-align: justify; font-weight: 500; }
-        .txt-latin { font-family: 'Faustina'; font-size: 1.3rem; line-height: 2.2; font-style: italic; text-align: justify; opacity: 0.95; }
+        .manuscript h5 { font-family: 'Cinzel', serif; font-size: 0.7rem; color: var(--gold); border-bottom: 1px solid #ddd; margin-bottom: 10px; }
+        .txt-am { font-family: 'Noto Sans Ethiopic'; font-size: 0.95rem; line-height: 1.8; }
+        .txt-en { font-size: 0.85rem; line-height: 1.6; font-style: italic; opacity: 0.9; }
 
-        /* --- 8. THE FOUNDATIONS & ARCHIVE TILES --- */
-        .basilica-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 30px; }
+        /* --- 6. ARCHIVE TILES (COMPACT) --- */
+        .tile-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
 
-        .basilica-tile {
-            background: var(--parchment-mid);
-            padding: 60px 40px;
+        .tile {
+            background: var(--parchment);
+            padding: 15px 10px;
             text-decoration: none;
-            color: var(--parchment-ink);
-            transition: var(--timing-ui) var(--hover-curve);
-            border-bottom: 10px solid var(--basilica-espresso);
+            color: #1a0f0f;
+            border-bottom: 3px solid #1a0f0f;
             text-align: center;
-            cursor: pointer;
-            position: relative;
+            transition: 0.3s;
         }
-        
-        .basilica-tile:hover { 
-            transform: translateY(-20px); 
-            border-bottom-color: var(--gold-manuscript); 
-            background: var(--white); 
-            box-shadow: 0 30px 60px rgba(0,0,0,0.4); 
-        }
-
-        .basilica-tile i { font-size: 4rem; color: var(--gold-manuscript); margin-bottom: 30px; display: block; }
-        .basilica-tile h4 { font-family: 'Cinzel', serif; font-size: 1.3rem; margin-bottom: 15px; letter-spacing: 3px; font-weight: 700; }
-        .basilica-tile span { font-family: 'Noto Sans Ethiopic'; font-weight: 700; color: var(--gold-manuscript); font-size: 1.15rem; }
-
-        /* Pillar Expansion System */
-        .content-drawer {
-            max-height: 0; opacity: 0; overflow: hidden;
-            transition: 0.6s var(--hover-curve);
-            margin-top: 0; padding-top: 0;
-            border-top: 0px solid #ccc;
-        }
-        .basilica-tile.open .content-drawer {
-            max-height: 600px; opacity: 1; margin-top: 35px;
-            padding-top: 30px; border-top-width: 1px;
-        }
-
-        /* --- 9. FELLOWSHIP CALL-TO-ACTION --- */
-        .portal-link {
-            display: inline-block;
-            background: var(--gold-manuscript);
-            color: var(--basilica-black);
-            padding: 26px 80px;
-            text-decoration: none;
-            font-family: 'Cinzel', serif;
-            font-weight: 900;
-            font-size: 1.2rem;
-            letter-spacing: 3px;
-            box-shadow: 0 20px 50px var(--gold-glow);
-            transition: var(--timing-ui);
-            border: 2px solid transparent;
-        }
-        .portal-link:hover { transform: scale(1.05); background: white; border-color: var(--gold-manuscript); }
-
-        /* --- 10. IPHONE 11 RESPONSIVE STACK --- */
-        @media (max-width: 1000px) {
-            .dual-stage { grid-template-columns: 1fr; gap: 40px; }
-            .glass-chamber { padding: 80px 30px; }
-            .title-grand { font-size: 2.2rem; letter-spacing: 8px; }
-            .subtitle-ethiopic { font-size: 1.8rem; }
-            .nav-control { min-width: 130px; padding: 12px 20px; }
-            .nav-control h4 { font-size: 0.65rem; }
-            .pos-tl, .pos-br { display: none; }
-            .manuscript-card { padding: 50px 30px; }
-        }
+        .tile:hover { transform: translateY(-3px); border-bottom-color: var(--gold); }
+        .tile i { font-size: 1.2rem; color: var(--gold); margin-bottom: 5px; display: block; }
+        .tile h4 { font-family: 'Cinzel', serif; font-size: 0.75rem; }
+        .tile span { font-family: 'Noto Sans Ethiopic'; font-size: 0.65rem; color: var(--gold); }
 
         footer { 
-            background: var(--basilica-black); 
-            color: #55443a; 
-            text-align: center; 
-            padding: 60px; 
-            font-family: 'Cinzel', serif; 
-            font-size: 0.85rem; 
-            letter-spacing: 8px; 
-            font-weight: 900; 
-            border-top: 1px solid #1a1a1a;
+            background: #000; color: #555; 
+            text-align: center; padding: calc(10px + env(safe-area-inset-bottom)); 
+            font-family: 'Cinzel', serif; font-size: 0.6rem; 
+            letter-spacing: 3px; border-top: 1px solid #111;
+        }
+
+        /* --- 7. MOBILE FIXES (IPHONE 11) --- */
+        @media (max-width: 800px) {
+            .split-grid { grid-template-columns: 1fr; gap: 10px; }
+            .glass-box { padding: 20px; max-height: 70vh; }
+            .manuscript { padding: 15px; }
+            .nav-link { min-width: 90px; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="nav-wrapper">
-            <div class="nav-control active" onclick="activateView('home-view', this)"><h4>Archive</h4><span>ቤት</span></div>
-            <div class="nav-control" onclick="activateView('mission-view', this)"><h4>Mission</h4><span>ተልዕኮ</span></div>
-            <div class="nav-control" onclick="activateView('scholastic-view', this)"><h4>Method</h4><span>ጥናት</span></div>
-            <div class="nav-control" onclick="activateView('pillar-view', this)"><h4>Foundations</h4><span>መሠረት</span></div>
-            <div class="nav-control" onclick="activateView('library-view', this)"><h4>Library</h4><span>ማኅደር</span></div>
-            <div class="nav-control" onclick="activateView('contact-view', this)"><h4>Communion</h4><span>ኅብረት</span></div>
-        </div>
+        <nav>
+            <div class="nav-link active" onclick="showView('home', this)"><h4>Home</h4><span>ቤት</span></div>
+            <div class="nav-link" onclick="showView('mission', this)"><h4>Mission</h4><span>ተልዕኮ</span></div>
+            <div class="nav-link" onclick="showView('about', this)"><h4>About</h4><span>ጥናት</span></div>
+            <div class="nav-link" onclick="showView('pillars', this)"><h4>Foundations</h4><span>መሠረት</span></div>
+            <div class="nav-link" onclick="showView('library', this)"><h4>Library</h4><span>ማኅደር</span></div>
+            <div class="nav-link" onclick="showView('contact', this)"><h4>Connect</h4><span>መገናኛ</span></div>
+        </nav>
     </header>
 
-    <main id="portal-scroller">
+    <main>
         
-        <div id="home-view" class="portal-pane active">
-            <div class="glass-chamber" style="text-align: center;">
-                <div class="ornament-leaf pos-tl"></div><div class="ornament-leaf pos-br"></div>
-                <div class="halo-container">
-                    <img src="logo.jpg" alt="Covenant of Jesus Insignia">
+        <div id="home" class="pane active">
+            <div class="glass-box" style="text-align: center;">
+                <div class="logo-ring">
+                    <img src="logo.jpg" alt="Logo">
                 </div>
-                <h1 class="title-grand">COVENANT OF JESUS</h1>
-                <h2 class="subtitle-ethiopic">ኪዳን ዘኢየሱስ</h2>
-                <div style="width: 180px; height: 1px; background: var(--gold-manuscript); margin: 45px auto;"></div>
-                <p style="text-transform: uppercase; letter-spacing: 10px; font-size: 0.9rem; opacity: 0.8; color: var(--gold-bright);">
-                    ORIENTAL ORTHODOX • PATRISTICS • METAPHYSICS
+                <h1 class="title-h1">Covenant of Jesus</h1>
+                <h2 class="title-am">ኪዳን ዘኢየሱስ</h2>
+                <p style="text-transform: uppercase; letter-spacing: 4px; font-size: 0.65rem; opacity: 0.7; color: var(--gold-bright);">
+                    Oriental Orthodox • Patristics • Philosophy
                 </p>
             </div>
         </div>
 
-        <div id="mission-view" class="portal-pane">
-            <div class="glass-chamber">
-                <h1 style="text-align:center; font-family:'Cinzel'; font-size:3rem; letter-spacing:8px; margin-bottom:10px;">The Sacred Mission</h1>
-                <h2 style="text-align:center; color:var(--gold-manuscript); margin-bottom:70px; font-family:'Noto Sans Ethiopic'; font-size:2.2rem;">የተልዕኮ መግለጫ</h2>
-                <div class="dual-stage">
-                    <div class="manuscript-card">
+        <div id="mission" class="pane">
+            <div class="glass-box">
+                <h1 class="title-h1" style="font-size: 1.2rem;">Sacred Mission</h1>
+                <div class="split-grid">
+                    <div class="manuscript">
                         <h5>መግለጫ</h5>
-                        <p class="txt-ethiopic">የዚህ ድረ-ገጽ ዋነኛ ዓላማ የጥንታዊቷን የኦሬንታል ኦርቶዶክስ ተዋሕዶ ቤተክርስቲያንን እምነትና ትምህርት በአእምሮአዊ ሙግት መከላከል ነው። ጥንታዊውን የአባቶች ጥበብ ከዘመናዊው የፍልስፍና ምርምር ጋር በማገናኘት ለእውነት ፈላጊዎች ሁሉ ጥልቅ ምላሽ ለመስጠት እንተጋለን።</p>
+                        <p class="txt-am">የዚህ ድረ-ገጽ ዋነኛ ዓላማ የጥንታዊቷን የኦሬንታል ኦርቶዶክስ ተዋሕዶ ቤተክርስቲያንን እምነትና ትምህርት በአእምሮአዊ ሙግት መከላከል ነው። </p>
                     </div>
-                    <div class="manuscript-card">
-                        <h5>Declaration</h5>
-                        <p class="txt-latin">The sovereign mission of this portal is the intellectual preservation and defense of the Oriental Orthodox faith. By bridging ancient Patristic wisdom with modern philosophical discourse, we seek to provide rigorous scholarly answers for all seekers of Divine Truth.</p>
+                    <div class="manuscript">
+                        <h5>Purpose</h5>
+                        <p class="txt-en">Dedicated to the intellectual defense of the Oriental Orthodox faith by bridging ancient wisdom with modern inquiry.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="scholastic-view" class="portal-pane">
-            <div class="glass-chamber">
-                <h1 style="text-align:center; font-family:'Cinzel'; font-size:3rem; letter-spacing:8px; margin-bottom:10px;">Scholastic Focus</h1>
-                <h2 style="text-align:center; color:var(--gold-manuscript); margin-bottom:70px; font-family:'Noto Sans Ethiopic'; font-size:2.2rem;">ጥናትና ምርምር</h2>
-                <div class="dual-stage">
-                    <div class="manuscript-card">
+        <div id="about" class="pane">
+            <div class="glass-box">
+                <h1 class="title-h1" style="font-size: 1.2rem;">Academic Focus</h1>
+                <div class="split-grid">
+                    <div class="manuscript">
                         <h5>ትኩረት</h5>
-                        <p class="txt-ethiopic">ትኩረታችን በዋናነት በታላቁ ቅዱስ ቄርሎስ እና በቅዱስ ሳዊሮስ ዘአንጾኪያ ነገረ ክርስቶስ (Christology) ላይ ያተኮረ ነው። በተጨማሪም የሜታ-ፊዚክስ እና የሎጂክ ትምህርቶችን በመጠቀም የፈጣሪን ህልውና እና የምሥጢረ ሥጋዌን ጥልቀት እንመረምራለን።</p>
+                        <p class="txt-am">ትኩረታችን በቅዱስ ቄርሎስ እና በቅዱስ ሳዊሮስ ነገረ ክርስቶስ ላይ ያተኮረ ነው።</p>
                     </div>
-                    <div class="manuscript-card">
-                        <h5>Scholarly Method</h5>
-                        <p class="txt-latin">Our academic inquiry centers upon the high Christology of St. Cyril of Alexandria and St. Severus of Antioch. Through the analytical prisms of Metaphysics and Logic, we examine the necessary existence of the Creator and the profound mystery of the Incarnate Logos.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="pillar-view" class="portal-pane">
-            <div class="glass-chamber">
-                <h1 style="text-align:center; font-family:'Cinzel'; font-size:3rem; letter-spacing:8px; margin-bottom:15px;">Foundations</h1>
-                <p style="text-align:center; color:var(--gold-manuscript); margin-bottom:60px; font-style:italic; font-size:1.2rem;">Interact for Depth / ለዝርዝር መግለጫ ይጫኑ</p>
-                <div class="basilica-grid">
-                    <div class="basilica-tile" onclick="expandTile(this)">
-                        <i class="fas fa-scroll"></i>
-                        <h4>Patristics</h4><span>የአባቶች ትምህርት</span>
-                        <div class="content-drawer">
-                            <p class="txt-ethiopic" style="font-size: 1.15rem; line-height: 2; color:#333;">የጥንት የቤተክርስቲያን አባቶች ያስተላለፉልንን ትምህርት በሥርዓት የምናጠናበት መሠረት ነው።</p>
-                            <p class="txt-latin" style="font-size: 1.05rem; color:#666;">A rigorous analysis of the theological and spiritual heritage passed down by the early Church Fathers.</p>
-                        </div>
-                    </div>
-                    <div class="basilica-tile" onclick="expandTile(this)">
-                        <i class="fas fa-brain"></i>
-                        <h4>Philosophy</h4><span>ፍልስፍና</span>
-                        <div class="content-drawer">
-                            <p class="txt-ethiopic" style="font-size: 1.15rem; line-height: 2; color:#333;">ምክንያታዊ በሆነ መንገድ የእምነትን መሠረት የምንመረምርበት እና የምንከላከልበት ጥበብ ነው።</p>
-                            <p class="txt-latin" style="font-size: 1.05rem; color:#666;">Rational engagement with the foundations of faith using classical logic, epistemology, and metaphysics.</p>
-                        </div>
-                    </div>
-                    <div class="basilica-tile" onclick="expandTile(this)">
-                        <i class="fas fa-book-open"></i>
-                        <h4>Scripture</h4><span>ቅዱሳት መጻሕፍት</span>
-                        <div class="content-drawer">
-                            <p class="txt-ethiopic" style="font-size: 1.15rem; line-height: 2; color:#333;">መጽሐፍ ቅዱስን ከመጀመሪያው ቋንቋው እና ከታሪካዊ አመጣጡ አንጻር የምናጠናበት ዘርፍ ነው።</p>
-                            <p class="txt-latin" style="font-size: 1.05rem; color:#666;">Scholarly exegesis of sacred texts with emphasis on linguistic roots and historical context.</p>
-                        </div>
+                    <div class="manuscript">
+                        <h5>Focus</h5>
+                        <p class="txt-en">Our research centers on the Christology of St. Cyril of Alexandria and St. Severus of Antioch.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="library-view" class="portal-pane">
-            <div class="glass-chamber">
-                <h1 style="text-align:center; margin-bottom:60px; font-family:'Cinzel'; font-size:3rem; letter-spacing:8px;">Theological Archive</h1>
-                <div class="basilica-grid">
-                    <a href="library/catechism.html" class="basilica-tile"><h4>Prayers for the Departed</h4><span>ለሙታን የሚደረግ ጸሎት</span></a>
-                    <a href="library/ontological.html" class="basilica-tile"><h4>Ontological Argument</h4><span>የአምላክ ህልውና ሙግት</span></a>
-                    <a href="library/rebaptism.html" class="basilica-tile"><h4>On Re-baptism</h4><span>ስለ ዳግም ጥምቀት</span></a>
-                    <a href="library/severus.html" class="basilica-tile"><h4>Severus of Antioch</h4><span>ቅዱስ ሳዊሮስ ዘአንጾኪያ</span></a>
-                    <a href="library/confession.html" class="basilica-tile"><h4>Search for Meaning</h4><span>የሕይወት ትርጉም ፍለጋ</span></a>
-                    <a href="library/josippon.html" class="basilica-tile"><h4>Josippon Study</h4><span>መጽሐፈ ዮሴፍ ወልደ ኮርዮን</span></a>
+        <div id="pillars" class="pane">
+            <div class="glass-box">
+                <h1 class="title-h1" style="font-size: 1.2rem; margin-bottom: 20px;">Intellectual Pillars</h1>
+                <div class="tile-grid">
+                    <div class="tile"><i class="fas fa-scroll"></i><h4>Patristics</h4><span>አባቶች</span></div>
+                    <div class="tile"><i class="fas fa-brain"></i><h4>Philosophy</h4><span>ፍልስፍና</span></div>
+                    <div class="tile"><i class="fas fa-book-open"></i><h4>Scripture</h4><span>መጽሐፍ</span></div>
                 </div>
             </div>
         </div>
 
-        <div id="contact-view" class="portal-pane">
-            <div class="glass-chamber" style="text-align: center;">
-                <h1 style="font-family:'Cinzel'; letter-spacing:10px; font-size:3.5rem;">Communion</h1>
-                <h2 style="color:var(--gold-manuscript); margin-top:15px; font-family:'Noto Sans Ethiopic'; font-size:2.2rem;">የኅብረት መድረክ</h2>
-                <div style="max-width: 750px; margin: 60px auto; color: #ccc; line-height: 2.3; font-size: 1.35rem;">
-                    For comprehensive theological research, Patristic study groups, and apologetic discourse, we invite you to enter our official Telegram channel.
+        <div id="library" class="pane">
+            <div class="glass-box">
+                <h1 class="title-h1" style="font-size: 1.2rem; margin-bottom: 20px;">Theological Archive</h1>
+                <div class="tile-grid">
+                    <a href="library/catechism.html" class="tile"><h4>Prayers</h4><span>ጸሎት</span></a>
+                    <a href="library/ontological.html" class="tile"><h4>Ontology</h4><span>ሙግት</span></a>
+                    <a href="library/rebaptism.html" class="tile"><h4>Re-baptism</h4><span>ጥምቀት</span></a>
+                    <a href="library/severus.html" class="tile"><h4>Severus</h4><span>ሳዊሮስ</span></a>
+                    <a href="library/confession.html" class="tile"><h4>Meaning</h4><span>ትርጉም</span></a>
+                    <a href="library/josippon.html" class="tile"><h4>Josippon</h4><span>ዮሴፍ</span></a>
                 </div>
-                <a href="https://t.me/KidanZeIyesus" target="_blank" class="portal-link">
-                    Enter Telegram Channel
-                </a>
-                <div style="margin-top: 100px; font-family:'Cinzel'; letter-spacing:12px; color:var(--gold-manuscript); font-size:1.3rem; font-weight:900;">CONTRA MUNDUM</div>
+            </div>
+        </div>
+
+        <div id="contact" class="pane">
+            <div class="glass-box" style="text-align: center;">
+                <h1 class="title-h1" style="font-size: 1.5rem;">Communion</h1>
+                <p style="font-size: 0.9rem; margin: 15px 0; opacity: 0.8;">Join our official Telegram portal for daily theological discourse.</p>
+                <a href="https://t.me/KidanZeIyesus" target="_blank" style="display: inline-block; background: var(--gold); color: #000; padding: 12px 30px; text-decoration: none; font-family: 'Cinzel', serif; font-weight: 900; font-size: 0.8rem; border-radius: 2px;">Telegram</a>
+                <p style="margin-top: 30px; font-family: 'Cinzel'; letter-spacing: 5px; color: var(--gold); font-size: 0.8rem;">CONTRA MUNDUM</p>
             </div>
         </div>
 
     </main>
 
     <footer>
-        COVENANT OF JESUS &copy; 2026 • ኪዳን ዘኢየሱስ • ATHANASIUS CONTRA MUNDUM
+        COVENANT OF JESUS &copy; 2026 • CONTRA MUNDUM
     </footer>
 
     <script>
-        /**
-         * View State Engine
-         * Switches content panes with hardware-accelerated animations
-         */
-        function activateView(viewId, triggerBtn) {
-            // Deactivate all active panes
-            const panes = document.querySelectorAll('.portal-pane');
-            panes.forEach(pane => pane.classList.remove('active'));
-            
-            // Deactivate all nav buttons
-            const buttons = document.querySelectorAll('.nav-control');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            
-            // Trigger activation
-            const targetPane = document.getElementById(viewId);
-            if(targetPane) {
-                targetPane.classList.add('active');
-            }
-            
-            if(triggerBtn) {
-                triggerBtn.classList.add('active');
-            }
-            
-            // Scroll internal main scroller to top
-            document.getElementById('portal-scroller').scrollTop = 0;
+        function showView(id, btn) {
+            document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            btn.classList.add('active');
         }
-
-        /**
-         * Foundation UI Logic
-         * Handles the expansion of intellectual pillar tiles
-         */
-        function expandTile(tileElement) {
-            // Toggle active state
-            tileElement.classList.toggle('open');
-            
-            // Exclusive expansion logic (Optional: Close others)
-            document.querySelectorAll('.basilica-tile').forEach(tile => {
-                if(tile !== tileElement) tile.classList.remove('open');
-            });
-        }
-
-        // Initialize Home View on Load
-        window.onload = () => {
-            console.log("Covenant of Jesus Portal [Active]");
-        };
     </script>
-
 </body>
 </html>
