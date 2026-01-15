@@ -92,7 +92,6 @@
             to { opacity: 1; filter: blur(0); transform: translateY(0); } 
         }
 
-        /* --- THE PREMIUM GLASS CARD (Global for all Sections) --- */
         .glass-card {
             background: rgba(255,255,255,0.02);
             backdrop-filter: blur(25px);
@@ -104,14 +103,12 @@
             box-shadow: 0 40px 100px rgba(0,0,0,0.6);
         }
 
-        /* Ornamental Corners */
         .glass-card::before, .glass-card::after {
             content: ''; position: absolute; width: 50px; height: 50px; border: 2px solid var(--gold);
         }
         .glass-card::before { top: -12px; left: -12px; border-right: 0; border-bottom: 0; }
         .glass-card::after { bottom: -12px; right: -12px; border-left: 0; border-top: 0; }
 
-        /* --- HOME SPECIFIC --- */
         .logo-ring {
             width: 180px; height: 180px;
             border-radius: 50%; border: 2px solid var(--gold);
@@ -159,15 +156,35 @@
             transition: var(--transition);
             border-bottom: 5px solid var(--espresso);
             text-align: center;
+            cursor: pointer;
+            overflow: hidden;
         }
-        .premium-card:hover { transform: translateY(-10px); border-bottom-color: var(--gold); background: white; }
+        .premium-card:hover { transform: translateY(-5px); border-bottom-color: var(--gold); background: white; }
         .premium-card i { font-size: 2.5rem; color: var(--gold); margin-bottom: 15px; display: block; }
         .premium-card h4 { font-family: 'Cinzel', serif; font-size: 1rem; margin-bottom: 10px; }
         .premium-card span { font-family: 'Noto Sans Ethiopic'; font-size: 0.9rem; color: var(--gold); font-weight: bold; }
 
+        /* --- INTERACTIVE DESCRIPTION TEXT --- */
+        .desc-wrapper {
+            max-height: 0;
+            opacity: 0;
+            transition: all 0.5s ease;
+            font-size: 0.9rem;
+            margin-top: 0;
+            border-top: 0px solid #eee;
+        }
+        .premium-card.expanded .desc-wrapper {
+            max-height: 300px;
+            opacity: 1;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        .desc-am { font-family: 'Noto Sans Ethiopic'; display: block; margin-bottom: 10px; line-height: 1.6; }
+        .desc-en { font-style: italic; display: block; line-height: 1.5; color: #555; }
+
         footer { background: #000; color: #55443a; text-align: center; padding: 25px; font-size: 0.75rem; letter-spacing: 5px; font-weight: bold; }
 
-        /* --- MOBILE OPTIMIZATION --- */
         @media (max-width: 900px) {
             .bilingual-grid { grid-template-columns: 1fr; }
             .glass-card { padding: 40px 20px; width: 92%; }
@@ -242,11 +259,36 @@
 
         <div id="foundations-pane" class="pane">
             <div class="glass-card">
-                <h1 class="pane-title" style="font-size: 2rem; margin-bottom: 40px;">Intellectual Pillars</h1>
+                <h1 class="pane-title" style="font-size: 2rem; margin-bottom: 20px;">Intellectual Pillars</h1>
+                <p style="text-align:center; color: var(--gold-bright); margin-bottom:30px; font-style:italic;">Click cards for descriptions / ለዝርዝር መግለጫ ካርዶቹን ይጫኑ</p>
                 <div class="archive-grid">
-                    <div class="premium-card"><i class="fas fa-scroll"></i><h4>Patristics</h4><span>የአባቶች ትምህርት</span></div>
-                    <div class="premium-card"><i class="fas fa-brain"></i><h4>Philosophy</h4><span>ፍልስፍና</span></div>
-                    <div class="premium-card"><i class="fas fa-book-open"></i><h4>Scripture</h4><span>ቅዱሳት መጻሕፍት</span></div>
+                    <div class="premium-card" onclick="toggleDesc(this)">
+                        <i class="fas fa-scroll"></i>
+                        <h4>Patristics</h4>
+                        <span>የአባቶች ትምህርት</span>
+                        <div class="desc-wrapper">
+                            <span class="desc-am">የቀደሙ አባቶችን እና የበረሃ አባቶችን የነገረ መለኮት ትምህርት በጥልቀት የምንመረምርበት ክፍል ነው።</span>
+                            <span class="desc-en">A systematic study of the theological heritage and wisdom passed down by the early Church Fathers.</span>
+                        </div>
+                    </div>
+                    <div class="premium-card" onclick="toggleDesc(this)">
+                        <i class="fas fa-brain"></i>
+                        <h4>Philosophy</h4>
+                        <span>ፍልስፍና</span>
+                        <div class="desc-wrapper">
+                            <span class="desc-am">በምክንያታዊነት እና በሎጂክ ሙግቶች አማካኝነት የአምላክን ህልውና የምናረጋግጥበት ዘርፍ ነው።</span>
+                            <span class="desc-en">Engaging with metaphysics and classical logic to defend the rational foundations of the Divine existence.</span>
+                        </div>
+                    </div>
+                    <div class="premium-card" onclick="toggleDesc(this)">
+                        <i class="fas fa-book-open"></i>
+                        <h4>Scripture</h4>
+                        <span>ቅዱሳት መጻሕፍት</span>
+                        <div class="desc-wrapper">
+                            <span class="desc-am">ጥንታውያን ቅዱሳት መጻሕፍትን ከቋንቋ እና ከታሪክ አንጻር የምናጠናበት መሠረታዊ ጥናት ነው።</span>
+                            <span class="desc-en">A meticulous study of sacred texts, focusing on their linguistic roots and theological significance.</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -281,12 +323,23 @@
     </footer>
 
     <script>
+        // Navigation Logic
         function navigate(paneId, btn) {
             document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             document.getElementById(paneId).classList.add('active');
             btn.classList.add('active');
             document.querySelector('main').scrollTop = 0;
+        }
+
+        // Foundation Toggle Logic
+        function toggleDesc(card) {
+            // Close others if open
+            document.querySelectorAll('.premium-card').forEach(c => {
+                if(c !== card) c.classList.remove('expanded');
+            });
+            // Toggle current
+            card.classList.toggle('expanded');
         }
     </script>
 </body>
