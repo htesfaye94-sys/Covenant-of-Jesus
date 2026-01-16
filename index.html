@@ -1,908 +1,353 @@
 <!DOCTYPE html>
-<html lang="am" dir="ltr" class="sovereign-root">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    
-    <meta name="description" content="Covenant of Jesus | ኪዳን ዘኢየሱስ — An Institutional Scholastic Archive dedicated to Oriental Orthodox Patristics, Metaphysics, and the preservation of Ancient Wisdom.">
-    <meta name="keywords" content="Orthodox, Ethiopia, Patristics, Theology, Philosophy, Metaphysics, St. Cyril, St. Severus">
+    <meta name="description" content="Covenant of Jesus — An Institutional Scholastic Archive for Oriental Orthodox Theology.">
     <meta name="author" content="The Covenant Scholastic Society">
     <meta name="theme-color" content="#030202">
-    
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Covenant">
-
-    <title>Covenant of Jesus | ኪዳን ዘኢየሱስ — Institutional Archive</title>
+    <title>Covenant of Jesus | Scholastic Archive</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700;800;900&family=Faustina:ital,wght@0,300..800;1,300..800&family=Noto+Sans+Ethiopic:wght@100..900&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Noto+Sans+Ethiopic:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
-        /* -------------------------------------------------------------------------------------------
-        [LAYER 1: ROOT VARIABLES & SACRED GEOMETRY]
-        -------------------------------------------------------------------------------------------
+        /* ===============================================================================================
+        [SECTION 2: ASCETIC DESIGN SYSTEM]
+        =============================================================================================== 
         */
         :root {
-            /* --- THE PALETTE OF THE BASILICA (Dark Mode) --- */
-            --void-absolute: #020101;
-            --void-deep: #080606;
-            --void-altar: #100b0b;
+            /* --- PALETTE: RESTRAINED & INTENTIONAL --- */
+            --bg-void: #050505;          /* Deepest Black */
+            --bg-paper: #fcfbf9;         /* High-End Parchment */
             
-            /* --- THE PALETTE OF THE SCRIPTORIUM (Light Mode) --- */
-            --vellum-base: #fdfbf7;
-            --vellum-dim: #f4f0e6;
-            --vellum-burn: #e8e1d0;
+            --ink-primary: #1a1a1a;      /* Soft Charcoal (Not pure black) */
+            --ink-secondary: #4a4a4a;    /* Readable Grey */
+            --ink-inverse: #e5e5e5;      /* Off-white for dark mode */
             
-            /* --- THE SACRED METALS --- */
-            --gold-leaf: #c5a059;
-            --gold-dust: #d4b87e;
-            --gold-ancient: #8e6d2f;
-            --gold-border: #5c4a26;
-            --gold-gradient: linear-gradient(145deg, #8e6d2f 0%, #c5a059 40%, #f1dfb5 50%, #c5a059 60%, #8e6d2f 100%);
+            /* --- ACCENT: ANTIQUE GOLD (MUTED) --- */
+            --accent: #8a6f3b;           /* Imperial/Antique Gold */
+            --accent-hover: #b08d55;
             
-            /* --- THE INKS --- */
-            --ink-obsidian: #0d0606;
-            --ink-charcoal: #1a1616;
-            --ink-crimson: #7a1f1f;
-            --ink-imperial: #580e0e;
+            /* --- TYPOGRAPHY RULES --- */
+            --font-main: 'Libre Baskerville', serif;
+            --font-eth: 'Noto Sans Ethiopic', sans-serif;
             
-            /* --- SPATIAL CONSTANTS --- */
-            --nav-height: 110px;
-            --footer-height: 160px;
-            --max-width: 1440px;
-            --sidebar-width: 0px; /* Future proofing */
+            --text-base: 19px;           /* Professional Readability */
+            --text-lh: 1.75;             /* 175% Line Height */
             
-            /* --- ANIMATION PHYSICS --- */
-            --ease-royal: cubic-bezier(0.19, 1, 0.22, 1);
-            --ease-spring: cubic-bezier(0.68, -0.6, 0.32, 1.6);
-            --dur-instant: 200ms;
-            --dur-quick: 400ms;
-            --dur-normal: 800ms;
-            --dur-slow: 1200ms;
-            --dur-epic: 2000ms;
-
-            /* --- TYPOGRAPHY ENGINE --- */
-            --font-display: 'Cinzel', serif;
-            --font-ornate: 'Cinzel Decorative', serif;
-            --font-body: 'Faustina', serif;
-            --font-ethiopian: 'Noto Sans Ethiopic', sans-serif;
-            --font-scholarly: 'Spectral', serif;
-            --font-heading: 'Playfair Display', serif;
+            /* --- LAYOUT PHYSICS --- */
+            --max-width: 760px;          /* The "Golden" Reading Width */
+            --spacing-section: 6rem;     /* Generous Vertical Rhythm */
+            --nav-height: 80px;
             
-            /* --- SHADOWS & DEPTH --- */
-            --shadow-flat: 0 1px 2px rgba(0,0,0,0.05);
-            --shadow-lift: 0 10px 30px rgba(0,0,0,0.1);
-            --shadow-float: 0 30px 60px rgba(0,0,0,0.15);
-            --shadow-void: 0 50px 100px rgba(0,0,0,0.9);
-            --glow-gold: 0 0 40px rgba(197, 160, 89, 0.3);
+            /* --- MICRO-INTERACTIONS --- */
+            --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition: 0.2s ease;
         }
 
-        /* -------------------------------------------------------------------------------------------
-        [LAYER 2: GLOBAL RESET & TEXTURE SYSTEM]
-        -------------------------------------------------------------------------------------------
+        /* ===============================================================================================
+        [SECTION 3: GLOBAL RESET & TYPOGRAPHY]
+        =============================================================================================== 
         */
-        *, *::before, *::after {
-            margin: 0; padding: 0; box-sizing: border-box;
-            -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease; }
 
-        html {
-            font-size: 16px;
-            scroll-behavior: smooth;
-            background-color: var(--void-absolute);
-            height: -webkit-fill-available;
-            scrollbar-width: none;
-        }
+        html { scroll-behavior: smooth; font-size: 16px; }
         
         body {
-            font-family: var(--font-body);
-            color: white;
-            background: var(--void-absolute);
-            overflow-x: hidden;
-            width: 100%;
-            position: relative;
+            background-color: var(--bg-void);
+            color: var(--ink-inverse);
+            font-family: var(--font-main);
+            font-size: var(--text-base);
+            line-height: var(--text-lh);
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* The Atmospheric Canvas (Dust System) */
-        #ether-canvas {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 10; opacity: 0.6;
-            mix-blend-mode: screen;
+        /* Typography Hierarchy */
+        h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1.5rem; color: inherit; }
+        h1 { font-size: 2.8rem; line-height: 1.2; margin-bottom: 0.5rem; }
+        h2 { font-size: 2rem; margin-top: 2rem; color: var(--accent); } 
+        h3 { font-size: 1.4rem; font-style: italic; opacity: 0.9; }
+        
+        p { margin-bottom: 1.5rem; max-width: 65ch; } /* Optimal Line Length */
+        
+        a { color: inherit; text-decoration: none; border-bottom: 1px solid transparent; transition: var(--transition); }
+        a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+        /* The Pull Quote */
+        blockquote {
+            border-left: 3px solid var(--accent);
+            padding-left: 1.5rem;
+            margin: 3rem 0;
+            font-size: 1.25rem;
+            font-style: italic;
+            color: var(--accent);
         }
 
-        /* The Parchment Overlay (Multiply Mode) */
-        .texture-vellum {
-            position: fixed; inset: 0; z-index: 9998; pointer-events: none;
-            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
-            background-repeat: repeat;
-            opacity: 0.12; mix-blend-mode: multiply;
-        }
-
-        /* The Noise Overlay (Grain) */
-        .texture-grain {
-            position: fixed; inset: 0; z-index: 9999; pointer-events: none;
-            background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
-            opacity: 0.08;
-        }
-
-        /* -------------------------------------------------------------------------------------------
-        [LAYER 3: THE COMMAND RAIL (NAVIGATION)]
-        -------------------------------------------------------------------------------------------
+        /* ===============================================================================================
+        [SECTION 4: NAVIGATION (STICKY & MINIMAL)]
+        =============================================================================================== 
         */
         .site-header {
             position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
-            z-index: 10000; display: flex; align-items: center; justify-content: center;
-            transition: transform var(--dur-normal) var(--ease-royal), background 0.5s ease;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(12px); border-bottom: 1px solid rgba(138, 111, 59, 0.2);
+            z-index: 1000; display: flex; align-items: center; justify-content: center;
         }
 
-        /* Dynamic Theme States for Header */
-        .site-header[data-theme="basilica"] {
-            background: rgba(2, 1, 1, 0.85);
-            backdrop-filter: blur(20px);
-            border-bottom-color: var(--gold-border);
+        .nav-inner {
+            width: 100%; max-width: 1000px; padding: 0 20px;
+            display: flex; justify-content: space-between; align-items: center;
         }
 
-        .site-header[data-theme="scriptorium"] {
-            background: rgba(253, 251, 247, 0.9);
-            backdrop-filter: blur(20px);
-            border-bottom-color: rgba(0,0,0,0.08);
-        }
+        .brand { font-weight: 700; font-size: 1.1rem; letter-spacing: 0.05em; color: var(--accent); }
 
-        .site-header.is-hidden { transform: translateY(-100%); }
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a { font-size: 0.9rem; font-weight: 400; opacity: 0.8; letter-spacing: 0.02em; }
+        .nav-links a:hover, .nav-links a.active { opacity: 1; color: var(--accent); text-decoration: none; }
 
-        .nav-wrapper {
-            width: 100%; max-width: var(--max-width); padding: 0 40px;
-            display: flex; align-items: center; justify-content: space-between;
-        }
-
-        /* Brand Identity */
-        .brand-lockup {
-            display: flex; align-items: center; gap: 15px; text-decoration: none;
-            opacity: 1; transition: opacity 0.3s ease;
-        }
-        .brand-lockup:hover { opacity: 0.8; }
-
-        .brand-seal {
-            width: 50px; height: 50px; border-radius: 50%;
-            border: 2px solid var(--gold-leaf); padding: 3px;
-            background: var(--void-absolute);
-        }
-        .site-header[data-theme="scriptorium"] .brand-seal { border-color: var(--ink-imperial); }
-
-        .brand-text {
-            font-family: var(--font-display); font-weight: 800; letter-spacing: 4px; font-size: 0.9rem;
-            color: var(--gold-leaf);
-        }
-        .site-header[data-theme="scriptorium"] .brand-text { color: var(--ink-imperial); }
-
-        /* Navigation Links */
-        .nav-links { display: flex; gap: 8px; list-style: none; }
-
-        .nav-node {
-            position: relative; padding: 10px 20px; min-width: 100px;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-decoration: none; border: 1px solid transparent;
-            transition: all 0.4s var(--ease-royal); cursor: pointer;
-        }
-
-        .nav-node h4 {
-            font-family: var(--font-display); font-size: 0.65rem; font-weight: 700;
-            letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px;
-            color: var(--gold-leaf); transition: color 0.3s;
-        }
-        .nav-node span {
-            font-family: var(--font-ethiopian); font-size: 0.6rem; opacity: 0.5;
-            color: white; font-weight: 300; transition: color 0.3s;
-        }
-
-        /* Light Mode Overrides for Nav */
-        .site-header[data-theme="scriptorium"] .nav-node h4 { color: var(--ink-charcoal); }
-        .site-header[data-theme="scriptorium"] .nav-node span { color: var(--ink-charcoal); }
-        .site-header[data-theme="scriptorium"] .nav-node { border-color: rgba(0,0,0,0.05); }
-        .site-header[data-theme="scriptorium"] .nav-node:hover { background: rgba(0,0,0,0.03); border-color: var(--ink-crimson); }
-        .site-header[data-theme="scriptorium"] .nav-node.active { background: var(--ink-crimson); border-color: var(--ink-imperial); }
-        .site-header[data-theme="scriptorium"] .nav-node.active h4 { color: white; }
-        .site-header[data-theme="scriptorium"] .nav-node.active span { color: white; }
-
-        /* Dark Mode Overrides for Nav */
-        .site-header[data-theme="basilica"] .nav-node { border-color: rgba(197, 160, 89, 0.15); background: rgba(255,255,255,0.02); }
-        .site-header[data-theme="basilica"] .nav-node:hover { border-color: var(--gold-leaf); background: rgba(197, 160, 89, 0.05); }
-        .site-header[data-theme="basilica"] .nav-node.active { border-color: white; background: var(--gold-gradient); transform: translateY(-2px); }
-        .site-header[data-theme="basilica"] .nav-node.active h4 { color: var(--void-absolute); }
-        .site-header[data-theme="basilica"] .nav-node.active span { color: var(--void-absolute); opacity: 1; font-weight: 700; }
-
-        /* -------------------------------------------------------------------------------------------
-        [LAYER 4: THE VIEWPORT ENGINE]
-        -------------------------------------------------------------------------------------------
+        /* ===============================================================================================
+        [SECTION 5: LAYOUT ENGINE]
+        =============================================================================================== 
         */
-        .viewport-stage {
-            height: 100vh; width: 100%;
-            overflow-y: auto; scroll-snap-type: y mandatory;
-            scrollbar-width: none;
-        }
-        .viewport-stage::-webkit-scrollbar { display: none; }
+        main { padding-top: var(--nav-height); }
 
-        /* Section Primitives */
-        .section-unit {
-            min-height: 100vh; width: 100%; position: relative;
-            display: flex; align-items: center; justify-content: center;
-            padding: calc(var(--nav-height) + 40px) 20px 60px;
-            scroll-snap-align: start; overflow: hidden;
+        section {
+            padding: var(--spacing-section) 1.25rem;
+            width: 100%;
+            display: flex; justify-content: center;
         }
 
-        .parallax-layer {
-            position: absolute; inset: 0; z-index: -1;
-            background-size: cover; background-position: center;
-            will-change: transform; transition: transform 0.1s linear;
+        /* The "Golden" Container - 760px Constraint */
+        .container {
+            width: 100%; max-width: var(--max-width);
+            position: relative; z-index: 2;
         }
 
-        /* -------------------------------------------------------------------------------------------
-        [LAYER 5: THE VAULT COMPONENT (THE CONTENT VESSEL)]
-        -------------------------------------------------------------------------------------------
+        /* ===============================================================================================
+        [SECTION 6: THEMES (CHIAROSCURO)]
+        =============================================================================================== 
         */
-        .vault {
-            position: relative; width: 100%; max-width: 1300px;
-            border-radius: 4px; z-index: 50;
-            padding: clamp(40px, 8vh, 100px) clamp(20px, 5vw, 80px);
-            transition: all var(--dur-normal) var(--ease-royal);
-        }
+        /* Dark Sections (Portal/Communion) */
+        .theme-dark { background-color: var(--bg-void); color: var(--ink-inverse); }
+        .theme-dark .divider { background: var(--accent); opacity: 0.3; }
 
-        /* VARIANT: BASILICA (Dark, Mystical) */
-        .vault.mode-basilica {
-            background: rgba(8, 6, 6, 0.92);
-            backdrop-filter: blur(50px); -webkit-backdrop-filter: blur(50px);
-            border: 1px solid rgba(197, 160, 89, 0.2);
-            box-shadow: var(--shadow-void);
-            color: white;
-            text-align: center;
-        }
+        /* Light Sections (Reading Areas) */
+        .theme-light { background-color: var(--bg-paper); color: var(--ink-primary); }
+        .theme-light h2 { color: var(--ink-primary); } /* Keep headings dark in light mode */
+        .theme-light .accent-text { color: var(--accent); }
+        .theme-light p { color: var(--ink-secondary); }
 
-        /* VARIANT: SCRIPTORIUM (Light, Scholastic) */
-        .vault.mode-scriptorium {
-            background: var(--vellum-base);
-            border: 1px solid rgba(0,0,0,0.05);
-            box-shadow: var(--shadow-float);
-            color: var(--ink-charcoal);
-        }
-
-        /* Ornamental Corners */
-        .corner-flourish {
-            position: absolute; width: 80px; height: 80px;
-            border: 2px solid var(--gold-border); opacity: 0.3; pointer-events: none;
-        }
-        .cf-tl { top: 20px; left: 20px; border-right: none; border-bottom: none; }
-        .cf-br { bottom: 20px; right: 20px; border-left: none; border-top: none; }
-
-        /* -------------------------------------------------------------------------------------------
-        [LAYER 6: TYPOGRAPHY & MANUSCRIPTS]
-        -------------------------------------------------------------------------------------------
+        /* ===============================================================================================
+        [SECTION 7: COMPONENTS]
+        =============================================================================================== 
         */
-        .h-hero {
-            font-family: var(--font-ornate); font-size: clamp(2.5rem, 6vw, 5.5rem);
-            line-height: 1.1; font-weight: 900; letter-spacing: 0.1em;
-            color: white; margin-bottom: 15px; text-shadow: 0 20px 50px black;
-        }
+        /* The Hero Divider */
+        .hero-divider { width: 60px; height: 3px; background: var(--accent); margin: 2rem 0; }
 
-        .h-eth-hero {
-            font-family: var(--font-ethiopian); font-size: clamp(2rem, 5vw, 4rem);
-            font-weight: 900; color: var(--gold-leaf); margin-bottom: 40px;
-        }
-
-        .h-section {
-            font-family: var(--font-heading); font-size: clamp(2rem, 4vw, 3.5rem);
-            color: var(--ink-charcoal); margin-bottom: 10px;
-        }
+        /* Manuscript/Archive Grid */
+        .archive-list { display: grid; gap: 1.5rem; margin-top: 2rem; }
         
-        .h-section-eth {
-            font-family: var(--font-ethiopian); font-size: clamp(1.5rem, 3vw, 2.5rem);
-            color: var(--ink-crimson); font-weight: 700; margin-bottom: 50px;
+        .archive-item {
+            display: block; padding: 2rem; border: 1px solid rgba(0,0,0,0.08);
+            background: white; border-radius: 2px; transition: var(--transition);
         }
+        .archive-item:hover {
+            transform: translateY(-2px); border-color: var(--accent);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .archive-item h4 { font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--ink-primary); }
+        .archive-item span { font-family: var(--font-eth); color: var(--accent); font-size: 0.9rem; }
 
-        /* The Ethiopian Cross Divider */
-        .sacred-divider {
-            display: flex; align-items: center; justify-content: center; gap: 30px; margin: 40px auto; width: 100%; max-width: 600px;
-        }
-        .sacred-line { height: 1px; width: 100%; background: linear-gradient(90deg, transparent, var(--gold-leaf), transparent); opacity: 0.5; }
-        .sacred-icon { width: 40px; height: 40px; fill: var(--gold-leaf); filter: drop-shadow(0 0 15px var(--gold-leaf)); }
-
-        /* Manuscript Grid */
-        .manuscript-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
-        }
-
-        .folio-sheet {
-            position: relative; padding: 0 20px;
-        }
-        
-        /* The Drop Cap Illumination */
-        .drop-cap::first-letter {
-            float: left; font-family: var(--font-ornate); font-size: 5.5rem;
-            line-height: 0.8; margin-right: 20px; margin-top: 5px;
-            color: var(--ink-crimson); font-weight: 900;
-        }
-
-        .folio-header {
-            font-family: var(--font-display); font-size: 0.8rem; letter-spacing: 0.2em;
-            text-transform: uppercase; color: var(--gold-border); margin-bottom: 25px;
-            border-bottom: 2px solid rgba(0,0,0,0.1); padding-bottom: 10px; display: inline-block;
-        }
-
-        .txt-amharic {
-            font-family: var(--font-ethiopian); font-size: 1.35rem; line-height: 2.4;
-            text-align: justify; font-weight: 500; color: var(--ink-obsidian);
-        }
-
-        .txt-english {
-            font-family: var(--font-scholarly); font-size: 1.25rem; line-height: 2;
-            text-align: justify; font-style: italic; color: var(--ink-muted);
-        }
-
-        /* -------------------------------------------------------------------------------------------
-        [LAYER 7: INTERACTIVE PILLARS (EXPANDING FOUNDATIONS)]
-        -------------------------------------------------------------------------------------------
-        */
-        .pillar-system {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 30px;
-        }
-
+        /* Expanding Pillars (Restored Functionality) */
         .pillar-card {
-            background: white; border: 1px solid rgba(0,0,0,0.06);
-            padding: 60px 40px; text-align: center; cursor: pointer;
-            transition: all 0.5s var(--ease-spring); position: relative;
-            box-shadow: var(--shadow-flat); overflow: hidden;
+            border-top: 1px solid rgba(0,0,0,0.1); padding: 2rem 0; cursor: pointer;
         }
-
-        .pillar-card:hover {
-            transform: translateY(-10px); box-shadow: var(--shadow-lift);
-            border-color: var(--gold-leaf);
-        }
-
-        .pillar-card.active {
-            border-bottom: 5px solid var(--ink-crimson); box-shadow: var(--shadow-float);
-        }
-
-        .pillar-icon {
-            font-size: 3.5rem; color: var(--ink-crimson); margin-bottom: 30px;
-            transition: transform 0.5s var(--ease-royal);
-        }
-        .pillar-card:hover .pillar-icon { transform: scale(1.1); }
-
-        .pillar-title {
-            font-family: var(--font-display); font-size: 1.4rem; font-weight: 800;
-            letter-spacing: 0.1em; color: var(--ink-charcoal); margin-bottom: 10px;
-        }
-
-        .pillar-subtitle {
-            font-family: var(--font-ethiopian); font-size: 1.1rem; color: var(--gold-border);
-            font-weight: 700; display: block; margin-bottom: 20px;
-        }
-
-        /* The Drawer Mechanism */
+        .pillar-card:hover h4 { color: var(--accent); }
         .pillar-drawer {
-            max-height: 0; opacity: 0; overflow: hidden;
-            transition: max-height 0.8s var(--ease-royal), opacity 0.4s ease;
-            text-align: left; padding-top: 0;
+            max-height: 0; overflow: hidden; transition: max-height 0.5s ease;
+            opacity: 0.8; font-size: 1rem; line-height: 1.6;
         }
+        .pillar-card.active .pillar-drawer { max-height: 500px; margin-top: 1rem; }
 
-        .pillar-card.active .pillar-drawer {
-            max-height: 600px; opacity: 1; padding-top: 30px;
-            margin-top: 30px; border-top: 1px solid rgba(0,0,0,0.08);
+        /* Footer */
+        footer {
+            padding: 4rem 1.25rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem; color: #666;
         }
+        .github-link { margin-top: 1rem; display: inline-block; font-size: 0.8rem; opacity: 0.5; }
+        .github-link:hover { opacity: 1; text-decoration: underline; }
 
-        /* -------------------------------------------------------------------------------------------
-        [LAYER 8: THE SCHOLASTIC ARCHIVE (SEARCHABLE)]
-        -------------------------------------------------------------------------------------------
-        */
-        .archive-interface { width: 100%; }
-
-        .search-bar-wrapper {
-            max-width: 600px; margin: 0 auto 50px; position: relative;
+        /* Mobile */
+        @media(max-width: 768px) {
+            :root { --text-base: 17px; --spacing-section: 4rem; }
+            h1 { font-size: 2.2rem; }
+            .nav-links { display: none; } /* Simplified for mobile */
         }
-        
-        .scholastic-input {
-            width: 100%; padding: 20px 50px 20px 25px;
-            font-family: var(--font-body); font-size: 1.2rem;
-            border: 2px solid var(--gold-border); background: white;
-            color: var(--ink-charcoal); border-radius: 4px; outline: none;
-            transition: box-shadow 0.3s ease;
-        }
-        .scholastic-input:focus { box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.2); }
-        .search-icon {
-            position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
-            color: var(--gold-border); font-size: 1.2rem; pointer-events: none;
-        }
-
-        .archive-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px;
-        }
-
-        .archive-node {
-            background: white; border: 1px solid rgba(0,0,0,0.05);
-            padding: 40px 30px; text-decoration: none; position: relative;
-            transition: all 0.4s var(--ease-royal); border-bottom: 4px solid #eee;
-        }
-
-        .archive-node:hover {
-            transform: scale(1.02); border-bottom-color: var(--ink-crimson);
-            box-shadow: var(--shadow-lift); z-index: 10;
-        }
-
-        .meta-tag {
-            position: absolute; top: 15px; right: 15px;
-            font-family: var(--font-display); font-size: 0.6rem; font-weight: 800;
-            letter-spacing: 0.1em; color: var(--gold-ancient);
-        }
-
-        .node-title {
-            font-family: var(--font-display); font-size: 1.2rem; font-weight: 900;
-            color: var(--ink-charcoal); margin-bottom: 8px; display: block;
-        }
-
-        .node-sub {
-            font-family: var(--font-ethiopian); font-size: 1rem; color: var(--ink-crimson);
-            font-weight: 700;
-        }
-
-        /* -------------------------------------------------------------------------------------------
-        [LAYER 9: COMMUNION & FOOTER]
-        -------------------------------------------------------------------------------------------
-        */
-        .communion-wrapper {
-            text-align: center; color: white;
-        }
-
-        .communion-text {
-            font-family: var(--font-scholarly); font-size: 1.4rem; line-height: 2.2;
-            color: rgba(255,255,255,0.7); max-width: 800px; margin: 0 auto 60px;
-        }
-
-        .sanctuary-btn {
-            display: inline-flex; align-items: center; gap: 20px;
-            padding: 25px 80px; border: 3px double var(--gold-leaf);
-            color: white; text-decoration: none; font-family: var(--font-display);
-            font-weight: 900; letter-spacing: 0.3em; font-size: 1rem;
-            position: relative; overflow: hidden; transition: 0.5s var(--ease-royal);
-        }
-
-        .sanctuary-btn::before {
-            content: ''; position: absolute; inset: 0; background: var(--gold-gradient);
-            transform: translateX(-101%); transition: transform 0.5s var(--ease-royal); z-index: -1;
-        }
-        .sanctuary-btn:hover::before { transform: translateX(0); }
-        .sanctuary-btn:hover { color: var(--ink-obsidian); border-color: transparent; }
-
-        .site-footer {
-            background: #000; border-top: 4px solid var(--ink-imperial);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            height: var(--footer-height); z-index: 100; position: relative;
-        }
-
-        .footer-sig { font-family: var(--font-display); font-size: 0.8rem; letter-spacing: 0.3em; color: var(--gold-border); margin-bottom: 10px; }
-        .footer-detail { font-family: var(--font-display); font-size: 0.6rem; letter-spacing: 0.2em; color: #333; }
-
-        /* -------------------------------------------------------------------------------------------
-        [LAYER 10: RESPONSIVE MATRIX]
-        -------------------------------------------------------------------------------------------
-        */
-        @media (max-width: 1200px) {
-            .manuscript-grid { grid-template-columns: 1fr; }
-            .vault { padding: 60px 30px; }
-        }
-
-        @media (max-width: 900px) {
-            :root { --nav-height: 90px; }
-            .brand-text { display: none; }
-            .nav-wrapper { padding: 0 20px; }
-            .nav-node { min-width: auto; padding: 10px; }
-            .nav-node span { display: none; }
-            .h-hero { font-size: 3rem; }
-            .h-eth-hero { font-size: 2.5rem; }
-            .sanctuary-btn { padding: 20px 40px; font-size: 0.8rem; }
-        }
-
-        /* Animation Helpers */
-        .reveal-node { opacity: 0; transform: translateY(50px); transition: 1s var(--ease-royal); }
-        .reveal-node.visible { opacity: 1; transform: translateY(0); }
-
     </style>
 </head>
-<body onload="CovenantCore.ignite()">
+<body onload="SystemCore.init()">
 
-    <canvas id="ether-canvas"></canvas>
-    <div class="texture-vellum"></div>
-    <div class="texture-grain"></div>
-
-    <svg style="display: none;">
-        <symbol id="icon-cross" viewBox="0 0 100 100">
-            <path d="M50 0 L60 40 L100 50 L60 60 L50 100 L40 60 L0 50 L40 40 Z" />
-            <circle cx="50" cy="50" r="15" fill="none" stroke="currentColor" stroke-width="5"/>
-        </symbol>
-    </svg>
-
-    <header class="site-header" id="mainHeader" data-theme="basilica">
-        <nav class="nav-wrapper">
-            <a href="#v-portal" class="brand-lockup">
-                <img src="logo.jpg" alt="Seal" class="brand-seal">
-                <span class="brand-text">COVENANT</span>
-            </a>
-            
+    <header class="site-header" id="navbar">
+        <div class="nav-inner">
+            <a href="#portal" class="brand">COVENANT</a>
             <ul class="nav-links">
-                <li><a href="#v-portal" class="nav-node active" data-target="v-portal"><h4>Portal</h4><span>ቤት</span></a></li>
-                <li><a href="#v-mission" class="nav-node" data-target="v-mission"><h4>Mission</h4><span>ተልዕኮ</span></a></li>
-                <li><a href="#v-scholastic" class="nav-node" data-target="v-scholastic"><h4>Study</h4><span>ጥናት</span></a></li>
-                <li><a href="#v-foundations" class="nav-node" data-target="v-foundations"><h4>Pillars</h4><span>መሠረት</span></a></li>
-                <li><a href="#v-archive" class="nav-node" data-target="v-archive"><h4>Archive</h4><span>ማኅደር</span></a></li>
-                <li><a href="#v-communion" class="nav-node" data-target="v-communion"><h4>Join</h4><span>ኅብረት</span></a></li>
+                <li><a href="#portal" data-target="portal">Home</a></li>
+                <li><a href="#mission" data-target="mission">Mission</a></li>
+                <li><a href="#library" data-target="library">Library</a></li>
+                <li><a href="#about" data-target="about">About</a></li>
+                <li><a href="#communion" data-target="communion">Community</a></li>
             </ul>
-        </nav>
+        </div>
     </header>
 
-    <main class="viewport-stage" id="scrollEngine">
-        
-        <section id="v-portal" class="section-unit" data-theme="basilica">
-            <div class="parallax-layer" style="background-image: url('https://images.unsplash.com/photo-1548003693-f140643900cc?q=80&w=2070');"></div>
-            <div class="vault mode-basilica reveal-node">
-                <div class="corner-flourish cf-tl"></div><div class="corner-flourish cf-br"></div>
+    <main>
+        <section id="portal" class="theme-dark" style="min-height: 90vh; align-items: center;">
+            <div class="container">
+                <h1>Covenant of Jesus</h1>
+                <h3 style="color: var(--accent); margin-bottom: 0;">ኪዳን ዘኢየሱስ</h3>
                 
-                <div style="margin-bottom: 40px; display: inline-block; position: relative;">
-                    <div style="width: 220px; height: 220px; border-radius: 50%; border: 4px solid var(--gold-leaf); padding: 10px; background: white; box-shadow: 0 0 100px var(--glow-gold);">
-                        <img src="logo.jpg" alt="Logo" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">
-                    </div>
-                </div>
-
-                <h1 class="h-hero">COVENANT OF JESUS</h1>
-                <h2 class="h-eth-hero">ኪዳን ዘኢየሱስ</h2>
-
-                <div class="sacred-divider">
-                    <div class="sacred-line"></div>
-                    <svg class="sacred-icon"><use href="#icon-cross"></use></svg>
-                    <div class="sacred-line"></div>
-                </div>
-
-                <p style="text-transform: uppercase; letter-spacing: 0.4em; font-family: var(--font-display); font-weight: 700; color: var(--gold-leaf); opacity: 0.9;">
-                    Oriental Orthodox • Patristics • Scholasticism
+                <div class="hero-divider"></div>
+                
+                <p style="font-size: 1.3rem; max-width: 30ch; color: #ccc;">
+                    The intellectual preservation and defense of the Oriental Orthodox faith.
                 </p>
             </div>
         </section>
 
-        <section id="v-mission" class="section-unit" data-theme="scriptorium">
-            <div class="parallax-layer" style="background-image: url('https://images.unsplash.com/photo-1519817650390-64a93db51149?q=80'); filter: brightness(0.6);"></div>
-            <div class="vault mode-scriptorium reveal-node">
-                <div class="corner-flourish cf-tl"></div>
+        <section id="mission" class="theme-light">
+            <div class="container">
+                <h2>The Sacred Mission</h2>
+                <p>The Covenant is not merely historical, but ontological.</p>
                 
-                <div style="text-align: center; margin-bottom: 60px;">
-                    <h2 class="h-section">The Sacred Mission</h2>
-                    <h3 class="h-section-eth">የተልዕኮ መግለጫ</h3>
-                </div>
+                <blockquote>
+                    “We bridge ancient Patristic wisdom with modern philosophical discourse to provide rigorous answers for seekers of Truth.”
+                </blockquote>
 
-                <div class="manuscript-grid">
-                    <div class="folio-sheet">
-                        <span class="folio-header">መግለጫ</span>
-                        <p class="txt-amharic drop-cap">የዚህ ድረ-ገጽ ዋነኛ ዓላማ የጥንታዊቷን የኦሬንታል ኦርቶዶክስ ተዋሕዶ ቤተክርስቲያንን እምነትና ትምህርት በአእምሮአዊ ሙግት መከላከል ነው። ጥንታዊውን የአባቶች ጥበብ ከዘመናዊው የፍልስፍና ምርምር ጋር በማገናኘት ለእውነት ፈላጊዎች ሁሉ ጥልቅ ምላሽ ለመስጠት እንተጋለን።</p>
-                    </div>
-                    <div class="folio-sheet">
-                        <span class="folio-header">Institutional Statement</span>
-                        <p class="txt-english">The primary mission of this portal is the intellectual preservation and defense of the Oriental Orthodox faith. By bridging ancient Patristic wisdom with modern philosophical discourse, we provide rigorous scholarly answers for all seekers of Divine Truth, operating under the standard of ecclesiastical rigor.</p>
-                    </div>
-                </div>
+                <p>Our primary mission is the intellectual preservation of the Oriental Orthodox faith. We do not offer mere devotional content, but structural theological defense.</p>
             </div>
         </section>
 
-        <section id="v-scholastic" class="section-unit" data-theme="scriptorium">
-            <div class="parallax-layer" style="background-image: url('https://images.unsplash.com/photo-1545063914-a1a6ec821acc?q=80'); filter: brightness(0.6);"></div>
-            <div class="vault mode-scriptorium reveal-node">
-                <div style="text-align: center; margin-bottom: 60px;">
-                    <h2 class="h-section">Scholarly Inquiry</h2>
-                    <h3 class="h-section-eth">ጥናትና ምርምር</h3>
-                </div>
-
-                <div class="manuscript-grid">
-                    <div class="folio-sheet">
-                        <span class="folio-header">ክሪስቶሎጂ</span>
-                        <p class="txt-amharic">ትኩረታችን በዋናነት በታላቁ ቅዱስ ቄርሎስ እና በቅዱስ ሳዊሮስ ዘአንጾኪያ ነገረ ክርስቶስ (Christology) ላይ ያተኮረ ነው። በተጨማሪም የሜታ-ፊዚክስ እና የሎጂክ ትምህርቶችን በመጠቀም የፈጣሪን ህልውና እና የምሥጢረ ሥጋዌን ጥልቀት እንመረምራለን።</p>
-                    </div>
-                    <div class="folio-sheet">
-                        <span class="folio-header">Academic Methodology</span>
-                        <p class="txt-english">Our research centers upon the high Christology of St. Cyril of Alexandria and St. Severus of Antioch. Utilizing the analytical frameworks of Metaphysics and Logic, we examine the necessary existence of the Godhead and the mystery of the Incarnate Logos through rigorous dialectic.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="v-foundations" class="section-unit" data-theme="scriptorium">
-            <div class="parallax-layer" style="background-image: url('https://images.unsplash.com/photo-1514369118554-e20d93546b30?q=80'); filter: brightness(0.6);"></div>
-            <div class="vault mode-scriptorium reveal-node">
-                <div style="text-align: center; margin-bottom: 50px;">
-                    <h2 class="h-section">Foundations</h2>
-                    <p style="font-family: var(--font-ethiopian); color: var(--ink-crimson); font-size: 1.2rem; font-weight: 700;">Scholastic Pillars of Truth</p>
-                </div>
-
-                <div class="pillar-system">
-                    <div class="pillar-card" onclick="CovenantCore.toggleDrawer(this)">
-                        <i class="fas fa-scroll pillar-icon"></i>
-                        <h4 class="pillar-title">Patristics</h4>
-                        <span class="pillar-subtitle">የአባቶች ትምህርት</span>
+        <section id="foundations" class="theme-light">
+            <div class="container">
+                <h2>Scholastic Pillars</h2>
+                <div style="margin-top: 3rem;">
+                    
+                    <div class="pillar-card" onclick="SystemCore.toggle(this)">
+                        <h4>1. Patristics</h4>
                         <div class="pillar-drawer">
-                            <p class="txt-amharic" style="border-top: 1px solid #ddd; padding-top: 20px;">የጥንት የቤተክርስቲያን አባቶች ያስተላለፉልንን ትምህርት በሥርዓት የምናጠናበት መሠረት ነው። ይህ ጥናት የቅዱሳት መጻሕፍትን ትርጓሜ እና የዶግማ መሠረቶችን ያካትታል።</p>
-                            <p class="txt-english" style="margin-top: 20px;">The systematic study of the writings of the Early Church Fathers, ensuring Apostolic tradition is articulated with clarity.</p>
+                            <p>Systematic study of the Early Church Fathers to ensure Apostolic continuity.</p>
                         </div>
                     </div>
 
-                    <div class="pillar-card" onclick="CovenantCore.toggleDrawer(this)">
-                        <i class="fas fa-brain pillar-icon"></i>
-                        <h4 class="pillar-title">Philosophy</h4>
-                        <span class="pillar-subtitle">ፍልስፍና</span>
+                    <div class="pillar-card" onclick="SystemCore.toggle(this)">
+                        <h4>2. Philosophy</h4>
                         <div class="pillar-drawer">
-                            <p class="txt-amharic" style="border-top: 1px solid #ddd; padding-top: 20px;">ምክንያታዊ በሆነ መንገድ የእምነትን መሠረት የምንመረምርበት እና የምንከላከልበት ጥበብ ነው። እውነትን ከውሸት ለመለየት ሎጂካዊ ሙግቶችን እንጠቀማለን።</p>
-                            <p class="txt-english" style="margin-top: 20px;">Utilizing Metaphysics and Logic to defend the rationality of the Incarnation and the Divine Godhead.</p>
+                            <p>Using Metaphysics and Logic to defend the rationality of the Incarnation.</p>
                         </div>
                     </div>
 
-                    <div class="pillar-card" onclick="CovenantCore.toggleDrawer(this)">
-                        <i class="fas fa-book-bible pillar-icon"></i>
-                        <h4 class="pillar-title">Scripture</h4>
-                        <span class="pillar-subtitle">ቅዱሳት መጻሕፍት</span>
+                    <div class="pillar-card" onclick="SystemCore.toggle(this)">
+                        <h4>3. Scripture</h4>
                         <div class="pillar-drawer">
-                            <p class="txt-amharic" style="border-top: 1px solid #ddd; padding-top: 20px;">መጽሐፍ ቅዱስን ከመጀመሪያው ቋንቋው እና ከታሪካዊ አመጣጡ አንጻር የምናጠናበት ዘርፍ ነው። ጥናታችን የአባቶችን ትርጓሜ መሠረት ያደረገ ነው።</p>
-                            <p class="txt-english" style="margin-top: 20px;">Exegesis through original languages and the authoritative interpretative lenses of the Holy Church Fathers.</p>
+                            <p>Exegesis through original languages and authoritative interpretative lenses.</p>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
 
-        <section id="v-archive" class="section-unit" data-theme="scriptorium">
-            <div class="parallax-layer" style="background-image: url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80'); filter: brightness(0.6);"></div>
-            <div class="vault mode-scriptorium reveal-node">
-                <div style="text-align: center; margin-bottom: 50px;">
-                    <h2 class="h-section">Digital Library</h2>
-                </div>
+        <section id="library" class="theme-light">
+            <div class="container">
+                <h2>The Archive</h2>
+                <p>Selected manuscripts for study.</p>
 
-                <div class="archive-interface">
-                    <div class="search-bar-wrapper">
-                        <input type="text" class="scholastic-input" placeholder="Search manuscripts (e.g. Severus)..." onkeyup="CovenantCore.filterArchive(this)">
-                        <i class="fas fa-search search-icon"></i>
-                    </div>
-
-                    <div class="archive-grid">
-                        <a href="library/catechism.html" class="archive-node">
-                            <span class="meta-tag">5 MIN READ</span>
-                            <span class="node-title">Soul Prayers</span>
-                            <span class="node-sub">ለሙታን ጸሎት</span>
-                        </a>
-                        <a href="library/ontological.html" class="archive-node">
-                            <span class="meta-tag">12 MIN READ</span>
-                            <span class="node-title">Ontology</span>
-                            <span class="node-sub">የህልውና ሙግት</span>
-                        </a>
-                        <a href="library/rebaptism.html" class="archive-node">
-                            <span class="meta-tag">8 MIN READ</span>
-                            <span class="node-title">Re-baptism</span>
-                            <span class="node-sub">ስለ ጥምቀት</span>
-                        </a>
-                        <a href="library/severus.html" class="archive-node">
-                            <span class="meta-tag">15 MIN READ</span>
-                            <span class="node-title">St. Severus</span>
-                            <span class="node-sub">ቅዱስ ሳዊሮስ</span>
-                        </a>
-                        <a href="library/confession.html" class="archive-node">
-                            <span class="meta-tag">6 MIN READ</span>
-                            <span class="node-title">Meaning</span>
-                            <span class="node-sub">የሕይወት ትርጉም</span>
-                        </a>
-                        <a href="library/josippon.html" class="archive-node">
-                            <span class="meta-tag">20 MIN READ</span>
-                            <span class="node-title">Josippon</span>
-                            <span class="node-sub">ዮሴፍ ወልደ ኮርዮን</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="v-communion" class="section-unit" data-theme="basilica">
-            <div class="parallax-layer" style="background-image: url('https://images.unsplash.com/photo-1438232992991-995b7058bbb3?q=80');"></div>
-            <div class="vault mode-basilica reveal-node">
-                <h1 class="h-hero" style="font-size: 3.5rem;">Communion</h1>
-                <h2 class="h-eth-hero" style="margin-bottom: 40px;">የኅብረት መድረክ</h2>
-                
-                <div class="communion-wrapper">
-                    <p class="communion-text">
-                        Scholastic inquiry flourishes in brotherhood. For daily discourse, Patristic study groups, and archive access, join our institutional sanctuary.
-                    </p>
-
-                    <a href="https://t.me/KidanZeIyesus" target="_blank" class="sanctuary-btn">
-                        <i class="fab fa-telegram-plane"></i>
-                        ENTER SANCTUARY
+                <div class="archive-list">
+                    <a href="library/reader.html?doc=catechism" class="archive-item">
+                        <h4>Prayers for the Departed</h4>
+                        <span>ለሙታን ጸሎት</span>
+                    </a>
+                    <a href="library/reader.html?doc=ontological" class="archive-item">
+                        <h4>The Ontological Argument</h4>
+                        <span>የህልውና ሙግት</span>
+                    </a>
+                    <a href="library/reader.html?doc=severus" class="archive-item">
+                        <h4>St. Severus of Antioch</h4>
+                        <span>ቅዱስ ሳዊሮስ</span>
+                    </a>
+                    <a href="library/reader.html?doc=josippon" class="archive-item">
+                        <h4>History of Josippon</h4>
+                        <span>ዮሴፍ ወልደ ኮርዮን</span>
                     </a>
                 </div>
             </div>
         </section>
 
+        <section id="about" class="theme-light" style="background-color: #f4f2ee;">
+            <div class="container">
+                <h2>About This Archive</h2>
+                <p><strong>Maintainer:</strong> The Covenant Scholastic Society.</p>
+                <p><strong>Purpose:</strong> To provide a digital sanctuary for rigorous theological inquiry.</p>
+                <p><strong>Orientation:</strong> Strictly Oriental Orthodox (Non-Chalcedonian).</p>
+                <p>This is not a blog. It is a living repository of ancient truth, maintained for the edification of the faithful and the answer of the skeptic.</p>
+            </div>
+        </section>
+
+        <section id="communion" class="theme-dark" style="text-align: center;">
+            <div class="container">
+                <h2>Communion</h2>
+                <p>Theology is a communal endeavor.</p>
+                <a href="https://t.me/KidanZeIyesus" target="_blank" style="display: inline-block; margin-top: 2rem; border-bottom: 1px solid var(--accent); color: var(--accent);">
+                    Join the Telegram Sanctuary &rarr;
+                </a>
+            </div>
+        </section>
     </main>
 
-    <footer class="site-footer">
-        <div class="footer-sig">COVENANT OF JESUS &copy; 2026 • ኪዳን ዘኢየሱስ</div>
-        <div class="footer-detail">CONTRA MUNDUM • SCHOLASTIC ARCHIVE</div>
+    <footer class="theme-dark">
+        <div>&copy; 2026 Covenant of Jesus.</div>
+        <a href="https://github.com/your-repo" class="github-link">View Source on GitHub</a>
     </footer>
 
     <script>
-        /**
-         * COVENANT CORE v10.0
-         * Handles: ScrollSpy, Theme Switching, Particles, Search, and Animations.
-         */
-        class CovenantCore {
-            static ignite() {
-                this.dom = {
-                    header: document.getElementById('mainHeader'),
-                    scroller: document.getElementById('scrollEngine'),
-                    navLinks: document.querySelectorAll('.nav-node'),
-                    sections: document.querySelectorAll('.section-unit'),
-                    canvas: document.getElementById('ether-canvas')
-                };
+        const SystemCore = {
+            init() {
+                this.scrollSpy();
+            },
 
-                this.state = {
-                    lastScroll: 0,
-                    currentTheme: 'basilica'
-                };
-
-                this._initScrollSpy();
-                this._initParallax();
-                this._initParticles();
-                this._revealInitial();
-                console.log("Covenant System: Online.");
-            }
-
-            /**
-             * SCROLL SPY & THEME SWITCHER
-             */
-            static _initScrollSpy() {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const id = entry.target.getAttribute('id');
-                            const theme = entry.target.getAttribute('data-theme');
-                            
-                            this._updateNav(id);
-                            this._updateTheme(theme);
-                            this._animateReveal(entry.target);
-                        }
-                    });
-                }, { threshold: 0.4 });
-
-                this.dom.sections.forEach(s => observer.observe(s));
-                
-                // Header Hide/Show Logic
-                this.dom.scroller.addEventListener('scroll', () => {
-                    const st = this.dom.scroller.scrollTop;
-                    if (st > this.state.lastScroll && st > 100) {
-                        this.dom.header.classList.add('is-hidden');
-                    } else {
-                        this.dom.header.classList.remove('is-hidden');
-                    }
-                    this.state.lastScroll = st;
-                }, { passive: true });
-            }
-
-            static _updateNav(id) {
-                this.dom.navLinks.forEach(link => {
-                    link.classList.toggle('active', link.getAttribute('data-target') === id);
-                });
-            }
-
-            static _updateTheme(newTheme) {
-                if (this.state.currentTheme !== newTheme) {
-                    this.dom.header.setAttribute('data-theme', newTheme);
-                    this.state.currentTheme = newTheme;
-                    
-                    // Toggle Particles (Only visible in Basilica mode)
-                    this.dom.canvas.style.opacity = newTheme === 'basilica' ? '0.6' : '0.1';
-                }
-            }
-
-            static _animateReveal(section) {
-                const nodes = section.querySelectorAll('.reveal-node');
-                nodes.forEach(n => n.classList.add('visible'));
-            }
-
-            static _revealInitial() {
-                const first = document.getElementById('v-portal');
-                this._animateReveal(first);
-            }
-
-            /**
-             * MOUSE PARALLAX
-             */
-            static _initParallax() {
-                document.addEventListener('mousemove', (e) => {
-                    const x = (window.innerWidth - e.pageX * 2) / 100;
-                    const y = (window.innerHeight - e.pageY * 2) / 100;
-                    
-                    document.querySelectorAll('.parallax-layer').forEach(layer => {
-                        layer.style.transform = `scale(1.05) translate(${x}px, ${y}px)`;
-                    });
-                });
-            }
-
-            /**
-             * ETHER PARTICLE SYSTEM (CANVAS)
-             */
-            static _initParticles() {
-                const ctx = this.dom.canvas.getContext('2d');
-                let width, height;
-                const particles = [];
-
-                const resize = () => {
-                    width = window.innerWidth;
-                    height = window.innerHeight;
-                    this.dom.canvas.width = width;
-                    this.dom.canvas.height = height;
-                };
-                
-                window.addEventListener('resize', resize);
-                resize();
-
-                class Particle {
-                    constructor() {
-                        this.reset();
-                    }
-                    reset() {
-                        this.x = Math.random() * width;
-                        this.y = Math.random() * height;
-                        this.vx = (Math.random() - 0.5) * 0.2;
-                        this.vy = (Math.random() - 0.5) * 0.2;
-                        this.size = Math.random() * 2;
-                        this.alpha = Math.random() * 0.5;
-                    }
-                    update() {
-                        this.x += this.vx;
-                        this.y += this.vy;
-                        if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) this.reset();
-                    }
-                    draw() {
-                        ctx.fillStyle = `rgba(197, 160, 89, ${this.alpha})`;
-                        ctx.beginPath();
-                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                        ctx.fill();
-                    }
-                }
-
-                for (let i = 0; i < 60; i++) particles.push(new Particle());
-
-                const loop = () => {
-                    ctx.clearRect(0, 0, width, height);
-                    particles.forEach(p => { p.update(); p.draw(); });
-                    requestAnimationFrame(loop);
-                };
-                loop();
-            }
-
-            /**
-             * INTERACTIVE FEATURES
-             */
-            static toggleDrawer(card) {
+            // Expanding Pillars Logic
+            toggle(card) {
                 const isActive = card.classList.contains('active');
                 document.querySelectorAll('.pillar-card').forEach(c => c.classList.remove('active'));
-                if (!isActive) card.classList.add('active');
-            }
+                if(!isActive) card.classList.add('active');
+            },
 
-            static filterArchive(input) {
-                const term = input.value.toLowerCase();
-                document.querySelectorAll('.archive-node').forEach(node => {
-                    const txt = node.innerText.toLowerCase();
-                    node.style.display = txt.includes(term) ? 'block' : 'none';
+            // Active Navigation Logic
+            scrollSpy() {
+                const navLinks = document.querySelectorAll('.nav-links a');
+                const sections = document.querySelectorAll('section');
+
+                window.addEventListener('scroll', () => {
+                    let current = '';
+                    sections.forEach(section => {
+                        const sectionTop = section.offsetTop;
+                        if(scrollY >= sectionTop - 150) {
+                            current = section.getAttribute('id');
+                        }
+                    });
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if(link.getAttribute('data-target') === current) {
+                            link.classList.add('active');
+                        }
+                    });
                 });
             }
-        }
-
-        window.CovenantCore = CovenantCore;
+        };
     </script>
 </body>
 </html>
