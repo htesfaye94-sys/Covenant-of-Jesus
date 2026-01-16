@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Covenant Archive | Reader</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Faustina:ital,wght@0,300..800;1,300..800&family=Noto+Sans+Ethiopic:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+
+    <style>
+        /* DESIGN TOKENS */
+        :root {
+            --paper: #FDFBF7;
+            --sidebar-bg: #f4f0e6;
+            --ink: #1a0f0f;
+            --gold: #c5a059;
+            --crimson: #8b0000;
+        }
+
+        /* LAYOUT */
+        body { margin: 0; background: var(--paper); font-family: 'Faustina', serif; color: var(--ink); overflow-x: hidden; }
+        
+        .layout-grid { display: grid; grid-template-columns: 320px 1fr; min-height: 100vh; }
+
+        /* SIDEBAR */
+        .sidebar {
+            background: var(--sidebar-bg); border-right: 1px solid rgba(0,0,0,0.1);
+            padding: 40px 25px; height: 100vh; position: sticky; top: 0; overflow-y: auto;
+        }
+
+        .back-link {
+            display: flex; align-items: center; gap: 10px; text-decoration: none;
+            color: var(--gold); font-family: 'Cinzel', serif; font-weight: 700;
+            font-size: 0.8rem; margin-bottom: 40px; letter-spacing: 1px;
+        }
+        .back-link:hover { color: var(--crimson); }
+
+        .menu-title { font-family: 'Cinzel', serif; font-weight: 900; font-size: 1.1rem; margin-bottom: 20px; border-bottom: 2px solid var(--gold); padding-bottom: 10px; }
+
+        .doc-link {
+            display: block; padding: 15px 0; border-bottom: 1px solid rgba(0,0,0,0.05);
+            text-decoration: none; transition: 0.3s;
+        }
+        .doc-link:hover { padding-left: 10px; border-bottom-color: var(--crimson); }
+        .doc-link.active { padding-left: 10px; border-left: 3px solid var(--crimson); }
+        
+        .doc-link h4 { margin: 0; font-family: 'Cinzel', serif; font-size: 0.85rem; color: #333; }
+        .doc-link span { font-family: 'Noto Sans Ethiopic'; font-size: 0.8rem; color: #777; }
+
+        /* READER AREA */
+        .reader-stage { padding: 80px 100px; max-width: 1100px; margin: 0 auto; }
+        
+        .meta-tag { font-family: 'Cinzel', serif; color: var(--gold); font-weight: 900; font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 15px; display: block; }
+        
+        h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin: 0 0 10px 0; color: var(--ink); line-height: 1.1; }
+        h2 { font-family: 'Noto Sans Ethiopic'; font-size: 2rem; color: var(--crimson); margin: 0 0 50px 0; font-weight: 700; }
+
+        .content { font-size: 1.3rem; line-height: 1.9; text-align: justify; }
+        .content p { margin-bottom: 30px; }
+        .content h3 { font-family: 'Cinzel', serif; margin-top: 50px; border-bottom: 1px solid var(--gold); display: inline-block; padding-bottom: 5px; }
+        .content ul { margin-bottom: 30px; padding-left: 20px; }
+        .content li { margin-bottom: 10px; }
+
+        .drop-cap { float: left; font-family: 'Cinzel Decorative', serif; font-size: 5rem; line-height: 0.75; margin-right: 20px; color: var(--crimson); margin-top: 5px; }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .layout-grid { grid-template-columns: 1fr; }
+            .sidebar { height: auto; position: relative; border-bottom: 1px solid #ccc; padding: 30px; }
+            .reader-stage { padding: 40px 20px; }
+            h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="layout-grid">
+        <aside class="sidebar">
+            <a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> RETURN TO PORTAL</a>
+            <div class="menu-title">MANUSCRIPTS</div>
+            <div id="nav-list"></div>
+        </aside>
+
+        <main class="reader-stage">
+            <div id="article-container" style="opacity: 0; transition: opacity 0.5s;">
+                <span class="meta-tag" id="art-meta">SELECT A DOCUMENT</span>
+                <h1 id="art-title">The Archive</h1>
+                <h2 id="art-eth">ማኅደር</h2>
+                <div class="content" id="art-body">
+                    <p>Please select a manuscript from the sidebar to begin reading.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="manuscripts.js"></script>
+    
+    <script>
+        const Reader = {
+            init() {
+                this.buildSidebar();
+                this.checkUrl();
+            },
+
+            buildSidebar() {
+                const container = document.getElementById('nav-list');
+                let html = '';
+                // Dynamically build links from manuscripts.js
+                for (const [key, data] of Object.entries(LIBRARY_DATA)) {
+                    html += `
+                        <a href="?doc=${key}" class="doc-link" id="link-${key}" onclick="Reader.load('${key}', event)">
+                            <h4>${data.title}</h4>
+                            <span>${data.ethiopianTitle}</span>
+                        </a>
+                    `;
+                }
+                container.innerHTML = html;
+            },
+
+            checkUrl() {
+                const params = new URLSearchParams(window.location.search);
+                const doc = params.get('doc');
+                if (doc && LIBRARY_DATA[doc]) {
+                    this.load(doc, null);
+                } else {
+                    document.getElementById('article-container').style.opacity = 1;
+                }
+            },
+
+            load(key, e) {
+                if (e) e.preventDefault();
+                
+                // Update URL
+                window.history.pushState({}, "", `?doc=${key}`);
+
+                // Update Sidebar Active State
+                document.querySelectorAll('.doc-link').forEach(l => l.classList.remove('active'));
+                const activeLink = document.getElementById(`link-${key}`);
+                if (activeLink) activeLink.classList.add('active');
+
+                // Fade Out -> Change Content -> Fade In
+                const container = document.getElementById('article-container');
+                container.style.opacity = 0;
+                
+                setTimeout(() => {
+                    const data = LIBRARY_DATA[key];
+                    document.getElementById('art-title').innerText = data.title;
+                    document.getElementById('art-eth').innerText = data.ethiopianTitle;
+                    document.getElementById('art-meta').innerText = data.readTime;
+                    document.getElementById('art-body').innerHTML = data.content;
+                    
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    container.style.opacity = 1;
+                }, 250);
+            }
+        };
+
+        window.onload = () => Reader.init();
+    </script>
+</body>
+</html>
